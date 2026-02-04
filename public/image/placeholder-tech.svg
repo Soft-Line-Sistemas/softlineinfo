@@ -1,0 +1,32 @@
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#020617"/>
+  <mask id="mask0_1_2" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="800" height="600">
+    <rect width="800" height="600" fill="#020617"/>
+  </mask>
+  <g mask="url(#mask0_1_2)">
+    <path d="M40 0L0 40V600H800V0H40Z" fill="#020617"/>
+    <g opacity="0.1">
+      <path d="M79.5 0V600" stroke="#3B82F6" stroke-width="2"/>
+      <path d="M159.5 0V600" stroke="#3B82F6" stroke-width="2"/>
+      <path d="M239.5 0V600" stroke="#3B82F6" stroke-width="2"/>
+      <path d="M319.5 0V600" stroke="#3B82F6" stroke-width="2"/>
+      <path d="M399.5 0V600" stroke="#3B82F6" stroke-width="2"/>
+      <path d="M479.5 0V600" stroke="#3B82F6" stroke-width="2"/>
+      <path d="M559.5 0V600" stroke="#3B82F6" stroke-width="2"/>
+      <path d="M639.5 0V600" stroke="#3B82F6" stroke-width="2"/>
+      <path d="M719.5 0V600" stroke="#3B82F6" stroke-width="2"/>
+      <path d="M0 79.5H800" stroke="#3B82F6" stroke-width="2"/>
+      <path d="M0 159.5H800" stroke="#3B82F6" stroke-width="2"/>
+      <path d="M0 239.5H800" stroke="#3B82F6" stroke-width="2"/>
+      <path d="M0 319.5H800" stroke="#3B82F6" stroke-width="2"/>
+      <path d="M0 399.5H800" stroke="#3B82F6" stroke-width="2"/>
+      <path d="M0 479.5H800" stroke="#3B82F6" stroke-width="2"/>
+      <path d="M0 559.5H800" stroke="#3B82F6" stroke-width="2"/>
+    </g>
+    <circle cx="400" cy="300" r="100" fill="#1E293B" stroke="#3B82F6" stroke-width="4"/>
+    <path d="M370 300L390 320L430 280" stroke="#3B82F6" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M350 350H450" stroke="#3B82F6" stroke-width="4" stroke-linecap="round" stroke-opacity="0.5"/>
+    <circle cx="400" cy="300" r="140" stroke="#3B82F6" stroke-width="2" stroke-dasharray="10 10" opacity="0.3"/>
+    <text x="400" y="460" font-family="monospace" font-size="24" fill="#94A3B8" text-anchor="middle" letter-spacing="0.2em">EM DESENVOLVIMENTO</text>
+  </g>
+</svg>
