@@ -120,30 +120,76 @@ export function HeroSection() {
           <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-border/50 bg-card/30 dark:bg-zinc-900/30 p-4 md:p-8 shadow-2xl backdrop-blur-md flex flex-col justify-center">
              <div className="absolute inset-0 bg-grid-slate-900/5 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] dark:bg-grid-white/5"></div>
              
-             <div className="relative z-10 space-y-4 md:space-y-6">
-                {[
-                  { step: "01", title: "Planejamento", desc: "Análise de requisitos e arquitetura", color: "bg-blue-500" },
-                  { step: "02", title: "Criação", desc: "UI/UX Design e Prototipagem", color: "bg-purple-500" },
-                  { step: "03", title: "Desenvolvimento", desc: "Código limpo e escalável", color: "bg-indigo-500" },
-                  { step: "04", title: "Lançamento", desc: "Deploy, Testes e Monitoramento", color: "bg-green-500" }
-                ].map((item, index) => (
-                  <motion.div 
-                    key={item.step}
-                    initial={{ opacity: 0, x: 50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.5 + (index * 0.2), duration: 0.5 }}
-                    className="group flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-xl border border-border/60 bg-background/80 hover:bg-background hover:shadow-lg transition-all duration-300 backdrop-blur-sm"
-                  >
-                    <div className={`h-10 w-10 md:h-12 md:w-12 rounded-lg ${item.color} flex items-center justify-center text-white font-bold text-base md:text-lg shadow-md group-hover:scale-110 transition-transform shrink-0`}>
-                      {item.step}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-foreground text-base md:text-lg truncate">{item.title}</h3>
-                      <p className="text-xs md:text-sm text-muted-foreground truncate">{item.desc}</p>
-                    </div>
-                    <div className={`h-1.5 w-1.5 md:h-2 md:w-2 rounded-full ${item.color} animate-pulse shrink-0`}></div>
-                  </motion.div>
-                ))}
+             <div className="relative z-10 space-y-3" onMouseLeave={() => setHoveredIndex(null)}>
+                {steps.map((item, index) => {
+                  const isHovered = hoveredIndex === index
+                  const isDefaultActive = hoveredIndex === null && index === 0
+
+                  return (
+                    <motion.div 
+                      key={item.step}
+                      initial={{ opacity: 0, x: 50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.5 + (index * 0.1), duration: 0.5 }}
+                      onMouseEnter={() => setHoveredIndex(index)}
+                      className={`group relative flex items-start gap-4 p-4 rounded-xl border transition-all duration-300 backdrop-blur-sm overflow-hidden cursor-default
+                        ${isHovered 
+                          ? "bg-background/90 border-primary/50 shadow-lg scale-[1.02] z-20" 
+                          : "bg-background/40 border-border/50 hover:bg-background/60 z-10"
+                        }
+                        ${isDefaultActive ? "animate-pulse border-primary/30 bg-background/60" : ""}
+                      `}
+                    >
+                      <div className={`h-12 w-12 rounded-xl ${item.color} flex items-center justify-center text-white shadow-lg shrink-0 transition-transform duration-500 
+                        ${isHovered ? "rotate-3 scale-110" : ""}
+                        ${isDefaultActive ? "scale-105" : ""}
+                      `}>
+                        <item.icon className="h-6 w-6" />
+                      </div>
+                      
+                      <div className="flex-1 min-w-0 z-10">
+                        <div className="flex items-center justify-between mb-1">
+                          <h3 className={`font-semibold text-lg transition-colors duration-300 
+                            ${isHovered || isDefaultActive ? "text-foreground" : "text-muted-foreground"}
+                          `}>
+                            {item.title}
+                          </h3>
+                          <span className={`text-xs font-bold px-2 py-0.5 rounded-full bg-background/50 border 
+                            ${isHovered ? "text-foreground border-primary/30" : "text-muted-foreground/50 border-transparent"}
+                            ${isDefaultActive ? "text-primary/80 border-primary/20" : ""}
+                          `}>
+                            {item.step}
+                          </span>
+                        </div>
+                        
+                        <p className="text-sm text-muted-foreground font-medium mb-2">
+                          {item.desc}
+                        </p>
+
+                        <AnimatePresence>
+                          {isHovered && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.3 }}
+                              className="overflow-hidden"
+                            >
+                              <p className="text-sm text-muted-foreground/80 leading-relaxed pb-1 border-t border-border/50 pt-2 mt-1">
+                                {item.details}
+                              </p>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+
+                      {/* Active Indicator Glow */}
+                      {isHovered && (
+                         <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-transparent pointer-events-none" />
+                      )}
+                    </motion.div>
+                  )
+                })}
              </div>
 
              {/* Connecting Line */}
