@@ -137,13 +137,13 @@ export function ProjectsSection() {
   }
 
   return (
-    <section id="projetos" className="w-full py-12 md:py-20 bg-background relative overflow-hidden">
+    <section id="projetos" className="w-full py-8 md:py-12 bg-background relative overflow-hidden">
       {/* Decorative Neon Background Blobs */}
       <div className="absolute top-[20%] right-[-10%] w-[400px] h-[400px] bg-primary/10 rounded-full blur-[130px] pointer-events-none animate-pulse duration-5000"></div>
       <div className="absolute bottom-[10%] left-[-10%] w-[500px] h-[500px] bg-green-500/5 rounded-full blur-[150px] pointer-events-none"></div>
 
       <div className="container px-4 md:px-6 relative z-10">
-        <div className="flex flex-col xl:flex-row justify-between items-start xl:items-end mb-16 gap-8">
+        <div className="flex flex-col xl:flex-row justify-between items-start xl:items-end mb-8 gap-8">
           <div className="space-y-4 max-w-3xl">
             <div className="inline-flex items-center gap-2 text-primary font-semibold rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 backdrop-blur-md">
                <Layers className="h-4.5 w-4.5 text-primary" />
@@ -299,7 +299,7 @@ export function ProjectsSection() {
           </AnimatePresence>
         </motion.div>
         
-        <div className="mt-16 text-center">
+        <div className="mt-8 text-center">
            <Button size="lg" variant="outline" className="h-12 px-8 rounded-full border-primary/20 hover:bg-primary/5 hover:text-primary transition-all font-semibold">
               {t("portfolio.viewAll")}
            </Button>

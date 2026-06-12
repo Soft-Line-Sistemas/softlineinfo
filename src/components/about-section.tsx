@@ -24,13 +24,13 @@ export function AboutSection() {
   }
 
   return (
-    <section id="sobre" className="w-full bg-muted/30 py-12 md:py-20 relative overflow-hidden">
+    <section id="sobre" className="w-full bg-muted/30 py-8 md:py-12 relative overflow-hidden">
       {/* Background Decoration */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent"></div>
       <div className="absolute -left-[20%] top-[20%] w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
 
       <div className="container relative">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-12">
           <div className="lg:col-span-5 space-y-8 sticky top-24">
             <div className="space-y-4">
               <div className="inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
@@ -56,7 +56,7 @@ export function AboutSection() {
             </div>
           </div>
           
-          <div className="lg:col-span-7 mt-20">
+          <div className="lg:col-span-7 mt-10 lg:mt-0">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Feature 1 - Custom Development */}
               <motion.div 

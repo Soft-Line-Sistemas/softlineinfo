@@ -129,7 +129,7 @@ export function ContactSection() {
   }
 
   return (
-    <section id="contato" className="w-full py-12 md:py-24 relative overflow-hidden bg-slate-950">
+    <section id="contato" className="w-full py-8 md:py-12 relative overflow-hidden bg-slate-950">
       {/* Background Decoration */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-[128px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-green-500/20 rounded-full blur-[128px] pointer-events-none" />
