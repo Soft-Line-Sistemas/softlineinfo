@@ -5,52 +5,75 @@ import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "framer-motion"
 import { ArrowRight, CheckCircle2, Code2, Lightbulb, Palette, Rocket } from "lucide-react"
 import Link from "next/link"
+import { useLanguage } from "@/lib/language-context"
 
 const steps = [
   { 
     step: "01", 
-    title: "Planejamento", 
-    desc: "Análise estratégica", 
-    details: "Mapeamento completo de requisitos, definição de arquitetura técnica e estratégia de produto para garantir escalabilidade e segurança desde o primeiro dia.",
     color: "bg-blue-500",
     icon: Lightbulb
   },
   { 
     step: "02", 
-    title: "Criação", 
-    desc: "Design & Prototipagem", 
-    details: "Desenvolvimento de interfaces intuitivas e focadas na experiência do usuário (UX/UI), com protótipos interativos antes de qualquer código.",
     color: "bg-purple-500",
     icon: Palette
   },
   { 
     step: "03", 
-    title: "Desenvolvimento", 
-    desc: "Engenharia de Software", 
-    details: "Codificação seguindo padrões Clean Code, testes automatizados e integração contínua para entregar software robusto e livre de bugs.",
     color: "bg-indigo-500",
     icon: Code2
   },
   { 
     step: "04", 
-    title: "Lançamento", 
-    desc: "Deploy & Monitoramento", 
-    details: "Infraestrutura em nuvem otimizada, pipelines de deploy automatizados e monitoramento em tempo real para garantir alta disponibilidade.",
     color: "bg-green-500",
     icon: Rocket
   }
 ]
-
 export function HeroSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(0)
+  const { t } = useLanguage()
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [isHoveredHero, setIsHoveredHero] = useState(false)
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    setMousePosition({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    })
+  }
+
+  const localizedSteps = steps.map((item, index) => ({
+    ...item,
+    title: t(`step.${index + 1}.title`),
+    desc: t(`step.${index + 1}.desc`),
+    details: t(`step.${index + 1}.details`)
+  }))
 
   return (
-    <section className="relative flex min-h-[90vh] items-center justify-center overflow-hidden bg-background pt-24 pb-12 md:pt-32 md:pb-20">
+    <section 
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHoveredHero(true)}
+      onMouseLeave={() => setIsHoveredHero(false)}
+      className="relative flex min-h-[90vh] items-center justify-center overflow-hidden bg-background pt-24 pb-12 md:pt-32 md:pb-20"
+    >
       {/* Background Elements - Enterprise Grid */}
       <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+      
+      {/* Interactive mouse follow glow blob */}
+      {isHoveredHero && (
+        <motion.div
+          className="absolute -z-10 h-[350px] w-[350px] rounded-full bg-primary/10 opacity-30 blur-[100px] pointer-events-none hidden md:block"
+          animate={{
+            x: mousePosition.x - 175,
+            y: mousePosition.y - 175,
+          }}
+          transition={{ type: "spring", damping: 30, stiffness: 200, mass: 0.5 }}
+        />
+      )}
+      
       <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/20 opacity-20 blur-[100px]"></div>
       <div className="absolute right-0 top-0 -z-10 h-[500px] w-[500px] bg-secondary/20 opacity-20 blur-[120px]"></div>
-      
       {/* Brand Watermark */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-bold text-[12vw] leading-none text-foreground/[0.03] pointer-events-none whitespace-nowrap select-none z-0 tracking-tighter">
         SOFTLINE
@@ -65,12 +88,13 @@ export function HeroSection() {
         >
           <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm font-medium text-primary shadow-sm backdrop-blur-sm">
             <span className="flex h-2 w-2 rounded-full bg-primary mr-2 animate-pulse"></span>
-            Softline Sistemas • Fábrica de Software
+            {t("hero.badge")}
           </div>
           
           <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl text-balance leading-[1.1]">
-            Transformamos Ideias em <span className="text-primary relative">
-              Software Real
+            {t("hero.title1")}{" "}
+            <span className="text-primary relative">
+              {t("hero.title2")}
               <svg className="absolute w-full h-3 -bottom-1 left-0 text-secondary/50 -z-10" viewBox="0 0 100 10" preserveAspectRatio="none">
                 <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="8" fill="none" />
               </svg>
@@ -78,18 +102,18 @@ export function HeroSection() {
           </h1>
           
           <p className="max-w-[600px] text-lg text-muted-foreground sm:text-xl leading-relaxed">
-            Do planejamento ao lançamento, desenvolvemos soluções tecnológicas sob medida que impulsionam o crescimento da sua empresa.
+            {t("hero.desc")}
           </p>
 
           <div className="flex flex-col gap-3 min-[400px]:flex-row pt-4">
             <Button size="lg" className="h-12 px-8 text-base shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all duration-300" asChild>
               <Link href="#contato">
-                Iniciar Projeto <ArrowRight className="ml-2 h-4 w-4" />
+                {t("hero.btn.start")} <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
             <Button variant="outline" size="lg" className="h-12 px-8 text-base border-primary/20 hover:bg-primary/5 hover:text-primary transition-all duration-300" asChild>
               <Link href="#projetos">
-                Nossos Cases
+                {t("hero.btn.cases")}
               </Link>
             </Button>
           </div>
@@ -97,15 +121,15 @@ export function HeroSection() {
           <div className="mt-8 flex items-center gap-4 text-sm text-muted-foreground">
             <div className="flex items-center gap-1">
               <CheckCircle2 className="h-4 w-4 text-green-500" />
-              <span>Metodologia Ágil</span>
+              <span>{t("hero.benefit1")}</span>
             </div>
             <div className="flex items-center gap-1">
               <CheckCircle2 className="h-4 w-4 text-green-500" />
-              <span>Alta Performance</span>
+              <span>{t("hero.benefit2")}</span>
             </div>
             <div className="flex items-center gap-1">
               <CheckCircle2 className="h-4 w-4 text-green-500" />
-              <span>Escalabilidade</span>
+              <span>{t("hero.benefit3")}</span>
             </div>
           </div>
         </motion.div>
@@ -121,7 +145,7 @@ export function HeroSection() {
              <div className="absolute inset-0 bg-grid-slate-900/5 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] dark:bg-grid-white/5"></div>
              
              <div className="relative z-10 space-y-3" onMouseLeave={() => setHoveredIndex(null)}>
-                {steps.map((item, index) => {
+                {localizedSteps.map((item, index) => {
                   const isHovered = hoveredIndex === index
                   const isDefaultActive = hoveredIndex === null && index === 0
 

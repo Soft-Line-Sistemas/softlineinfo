@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { LanguageProvider } from "@/lib/language-context";
 import { Toaster } from "@/components/ui/sonner";
 import { ServiceWorkerRegister } from "@/components/service-worker-register";
 import { Analytics } from "@/components/analytics";
@@ -55,11 +56,13 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
-          <Toaster />
-          <ServiceWorkerRegister />
-          <Analytics />
-          <FloatingWhatsApp />
+          <LanguageProvider>
+            {children}
+            <Toaster />
+            <ServiceWorkerRegister />
+            <Analytics />
+            <FloatingWhatsApp />
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,30 +16,31 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { toast } from "sonner"
 import { Mail, MapPin, Phone, MessageCircle, Map as MapIcon, Car } from "lucide-react"
-
-const formSchema = z.object({
-  name: z.string().min(2, {
-    message: "O nome deve ter pelo menos 2 caracteres.",
-  }),
-  email: z.string().email({
-    message: "Por favor, insira um email válido.",
-  }),
-  phone: z.string().min(10, {
-    message: "O telefone deve ter pelo menos 10 caracteres.",
-  }),
-  company: z.string().optional(),
-  subject: z.string().min(5, {
-    message: "O assunto deve ter pelo menos 5 caracteres.",
-  }),
-  message: z.string().min(10, {
-    message: "A mensagem deve ter pelo menos 10 caracteres.",
-  }),
-})
-
 import { motion } from "framer-motion"
-import { section } from "framer-motion/client"
+import { useLanguage } from "@/lib/language-context"
 
 export function ContactSection() {
+  const { t } = useLanguage()
+
+  const formSchema = z.object({
+    name: z.string().min(2, {
+      message: t("contact.validation.name"),
+    }),
+    email: z.string().email({
+      message: t("contact.validation.email"),
+    }),
+    phone: z.string().min(10, {
+      message: t("contact.validation.phone"),
+    }),
+    company: z.string().optional(),
+    subject: z.string().min(5, {
+      message: t("contact.validation.subject"),
+    }),
+    message: z.string().min(10, {
+      message: t("contact.validation.message"),
+    }),
+  })
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -52,6 +52,54 @@ export function ContactSection() {
       message: "",
     },
   })
+
+  const triggerConfetti = () => {
+    if (typeof window === "undefined") return
+    
+    // Generate beautiful falling confetti particles
+    for (let i = 0; i < 80; i++) {
+      const el = document.createElement("div")
+      const size = Math.random() * 6 + 6
+      
+      el.style.position = "fixed"
+      el.style.zIndex = "9999"
+      el.style.width = `${size}px`
+      el.style.height = `${size}px`
+      el.style.backgroundColor = ["#3b82f6", "#10b981", "#f59e0b", "#ec4899", "#8b5cf6", "#f97316"][Math.floor(Math.random() * 6)]
+      el.style.left = `${Math.random() * 100}vw`
+      el.style.top = `-20px`
+      el.style.borderRadius = Math.random() > 0.5 ? "50%" : "2px"
+      el.style.pointerEvents = "none"
+      el.style.opacity = (Math.random() * 0.4 + 0.6).toString()
+      
+      document.body.appendChild(el)
+      
+      const speedY = Math.random() * 5 + 4
+      const speedX = Math.random() * 4 - 2
+      let rotation = Math.random() * 360
+      const rotationSpeed = Math.random() * 6 - 3
+      
+      let currentTop = -20
+      let currentLeft = parseFloat(el.style.left)
+      
+      const anim = () => {
+        currentTop += speedY
+        currentLeft += speedX
+        rotation += rotationSpeed
+        el.style.top = `${currentTop}px`
+        el.style.left = `${currentLeft}px`
+        el.style.transform = `rotate(${rotation}deg)`
+        
+        // Remove element when it exits the viewport
+        if (currentTop < window.innerHeight) {
+          requestAnimationFrame(anim)
+        } else {
+          el.remove()
+        }
+      }
+      requestAnimationFrame(anim)
+    }
+  }
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -67,13 +115,14 @@ export function ContactSection() {
         throw new Error("Falha ao enviar mensagem")
       }
 
-      toast.success("Mensagem enviada com sucesso!", {
-        description: "Entraremos em contato em breve.",
+      triggerConfetti()
+      toast.success(t("contact.toast.success"), {
+        description: t("contact.toast.success.desc"),
       })
       form.reset()
     } catch (error) {
-      toast.error("Erro ao enviar mensagem", {
-        description: "Tente novamente mais tarde ou entre em contato pelo WhatsApp.",
+      toast.error(t("contact.toast.error"), {
+        description: t("contact.toast.error.desc"),
       })
       console.error(error)
     }
@@ -95,11 +144,10 @@ export function ContactSection() {
         >
           <div className="space-y-4">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl text-white">
-              Vamos Conversar?
+              {t("contact.title")}
             </h2>
             <p className="max-w-[600px] text-slate-300 md:text-lg leading-relaxed">
-              Estamos prontos para entender seus desafios e oferecer a melhor solução tecnológica. 
-              Preencha o formulário ou utilize nossos canais diretos para um atendimento ágil.
+              {t("contact.desc")}
             </p>
           </div>
           <div className="grid gap-8">
@@ -109,7 +157,7 @@ export function ContactSection() {
               </div>
               <div className="space-y-3 w-full">
                 <div>
-                  <h3 className="font-semibold text-lg text-white">Nossa Sede</h3>
+                  <h3 className="font-semibold text-lg text-white">{t("contact.headquarters")}</h3>
                   <p className="text-slate-400 leading-snug">
                     R. Conselheiro Dantas, 5 - Comércio<br/>
                     Salvador - BA, 40015-070
@@ -131,12 +179,12 @@ export function ContactSection() {
                 <div className="flex flex-wrap gap-3">
                    <Button variant="secondary" size="sm" className="h-9 gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/10 backdrop-blur-sm" asChild>
                      <a href="https://www.google.com/maps/dir/?api=1&destination=R.+Conselheiro+Dantas,+5+-+Comércio,+Salvador+-+BA,+40015-070" target="_blank" rel="noopener noreferrer">
-                       <MapIcon className="h-4 w-4" /> Abrir no Maps
+                       <MapIcon className="h-4 w-4" /> {t("contact.maps")}
                      </a>
                    </Button>
                    <Button variant="secondary" size="sm" className="h-9 gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/10 backdrop-blur-sm" asChild>
                      <a href="https://m.uber.com/ul/?action=setPickup&client_id=uber&pickup=my_location&dropoff[formatted_address]=R.%20Conselheiro%20Dantas%2C%205%20-%20Com%C3%A9rcio%2C%20Salvador%20-%20BA%2C%2040015-070" target="_blank" rel="noopener noreferrer">
-                       <Car className="h-4 w-4" /> Ir de Uber
+                       <Car className="h-4 w-4" /> {t("contact.uber")}
                      </a>
                    </Button>
                 </div>
@@ -149,8 +197,8 @@ export function ContactSection() {
                   <Phone className="h-6 w-6" />
                 </div>
                 <div className="space-y-2">
-                  <h3 className="font-semibold text-lg text-white">Atendimento</h3>
-                  <p className="text-sm text-slate-400">Seg-Sex, 8h às 18h</p>
+                  <h3 className="font-semibold text-lg text-white">{t("contact.hours")}</h3>
+                  <p className="text-sm text-slate-400">{t("contact.hours.detail")}</p>
                   <Button variant="outline" size="sm" className="bg-green-600/20 hover:bg-green-600/30 text-green-400 border-green-600/30 shadow-sm w-full sm:w-auto hover:text-green-300" asChild>
                     <a href="https://wa.me/5571993703911" target="_blank" rel="noopener noreferrer">
                       <MessageCircle className="mr-2 h-4 w-4" /> WhatsApp
@@ -164,11 +212,11 @@ export function ContactSection() {
                   <Mail className="h-6 w-6" />
                 </div>
                 <div className="space-y-1">
-                   <h3 className="font-semibold text-lg text-white">Email Corporativo</h3>
+                   <h3 className="font-semibold text-lg text-white">{t("contact.email")}</h3>
                    <a href="mailto:comercial@softlineinfo.com.br" className="text-sm text-slate-400 hover:text-white transition-colors">
                      comercial@softlineinfo.com.br
                    </a>
-                   <p className="text-xs text-slate-500 mt-1">Resposta em até 24h</p>
+                   <p className="text-xs text-slate-500 mt-1">{t("contact.email.detail")}</p>
                 </div>
               </div>
             </div>
@@ -183,8 +231,8 @@ export function ContactSection() {
           className="bg-white/5 backdrop-blur-2xl rounded-3xl p-8 shadow-2xl border border-white/10"
         >
           <div className="mb-6">
-            <h3 className="text-xl font-semibold mb-2 text-white">Envie uma Mensagem</h3>
-            <p className="text-sm text-slate-400">Preencha os dados abaixo e nosso time comercial entrará em contato.</p>
+            <h3 className="text-xl font-semibold mb-2 text-white">{t("contact.form.title")}</h3>
+            <p className="text-sm text-slate-400">{t("contact.form.desc")}</p>
           </div>
           
           <Form {...form}>
@@ -195,9 +243,9 @@ export function ContactSection() {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-slate-300">Nome</FormLabel>
+                      <FormLabel className="text-slate-300">{t("contact.form.name")}</FormLabel>
                       <FormControl>
-                        <Input placeholder="Seu nome" {...field} className="bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus-visible:ring-blue-500/50" />
+                        <Input placeholder={t("contact.form.name.placeholder")} {...field} className="bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus-visible:ring-blue-500/50" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -208,9 +256,9 @@ export function ContactSection() {
                   name="phone"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-slate-300">Telefone</FormLabel>
+                      <FormLabel className="text-slate-300">{t("contact.form.phone")}</FormLabel>
                       <FormControl>
-                        <Input placeholder="(00) 00000-0000" {...field} className="bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus-visible:ring-blue-500/50" />
+                        <Input placeholder={t("contact.form.phone.placeholder")} {...field} className="bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus-visible:ring-blue-500/50" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -223,9 +271,9 @@ export function ContactSection() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-slate-300">Email</FormLabel>
+                      <FormLabel className="text-slate-300">{t("contact.form.email")}</FormLabel>
                       <FormControl>
-                        <Input placeholder="seu@email.com" {...field} className="bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus-visible:ring-blue-500/50" />
+                        <Input placeholder={t("contact.form.email.placeholder")} {...field} className="bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus-visible:ring-blue-500/50" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -236,9 +284,9 @@ export function ContactSection() {
                   name="company"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-slate-300">Empresa (Opcional)</FormLabel>
+                      <FormLabel className="text-slate-300">{t("contact.form.company")}</FormLabel>
                       <FormControl>
-                        <Input placeholder="Nome da empresa" {...field} className="bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus-visible:ring-blue-500/50" />
+                        <Input placeholder={t("contact.form.company.placeholder")} {...field} className="bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus-visible:ring-blue-500/50" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -250,9 +298,9 @@ export function ContactSection() {
                 name="subject"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-slate-300">Assunto</FormLabel>
+                    <FormLabel className="text-slate-300">{t("contact.form.subject")}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Sobre o que vamos falar?" {...field} className="bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus-visible:ring-blue-500/50" />
+                      <Input placeholder={t("contact.form.subject.placeholder")} {...field} className="bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus-visible:ring-blue-500/50" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -263,10 +311,10 @@ export function ContactSection() {
                 name="message"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-slate-300">Mensagem</FormLabel>
+                    <FormLabel className="text-slate-300">{t("contact.form.message")}</FormLabel>
                     <FormControl>
                       <Textarea 
-                        placeholder="Conte-nos mais sobre seu projeto ou necessidade..." 
+                        placeholder={t("contact.form.message.placeholder")} 
                         className="min-h-[120px] bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus-visible:ring-blue-500/50"
                         {...field} 
                       />
@@ -280,7 +328,7 @@ export function ContactSection() {
                 disabled={form.formState.isSubmitting}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-6 text-lg shadow-lg shadow-blue-900/20 disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                {form.formState.isSubmitting ? "Enviando..." : "Enviar Mensagem"}
+                {form.formState.isSubmitting ? t("contact.form.submitting") : t("contact.form.submit")}
               </Button>
             </form>
           </Form>
@@ -289,4 +337,3 @@ export function ContactSection() {
     </section>
   )
 }
-
