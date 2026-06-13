@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informativos | Soft Line Sistemas</title>
+  <style>
+    /* Reset & Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: #1e53b8;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Container layout */
+    .container {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header styling */
+    header {
+      background-color: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo-container {
+      display: inline-block;
+    }
+
+    .logo-img {
+      height: 48px;
+      max-width: 100%;
+      object-fit: contain;
+      vertical-align: middle;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      color: #475569;
+    }
+
+    .nav-links a:hover {
+      color: #1e53b8;
+      text-decoration: none;
+    }
+
+    /* Main Content */
+    main {
+      padding: 40px 0 60px 0;
+    }
+
+    .hero-section {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .badge {
+      display: inline-block;
+      background-color: #eff6ff;
+      color: #1e53b8;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.025em;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: #64748b;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Informative Cards */
+    .news-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    .card-category {
+      background-color: #f1f5f9;
+      color: #334155;
+      padding: 2px 10px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    .card-date {
+      font-weight: 500;
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 10px;
+    }
+
+    .card-content {
+      color: #475569;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* Support / CTA area */
+    .cta-box {
+      margin-top: 48px;
+      background: linear-gradient(135deg, #1e53b8 0%, #1d4ed8 100%);
+      color: #ffffff;
+      border-radius: 12px;
+      padding: 35px;
+      text-align: center;
+      box-shadow: 0 10px 15px -3px rgba(30, 83, 184, 0.2);
+    }
+
+    .cta-box h2 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .cta-box p {
+      color: #dbeafe;
+      font-size: 15px;
+      max-width: 600px;
+      margin: 0 auto 24px auto;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #ffffff;
+      color: #1e53b8;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 15px;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .btn:hover {
+      background-color: #eff6ff;
+      text-decoration: none;
+      transform: scale(1.02);
+    }
+
+    /* Footer */
+    footer {
+      background-color: #ffffff;
+      border-top: 1px solid #e2e8f0;
+      padding: 40px 0;
+      color: #64748b;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .footer-info {
+      margin-bottom: 16px;
+    }
+
+    .footer-info p {
+      margin-bottom: 6px;
+    }
+
+    .copyright {
+      border-top: 1px solid #f1f5f9;
+      padding-top: 16px;
+      font-weight: 500;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .header-content {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container header-content">
+      <div class="logo-container">
+        <a href="/">
+          <img src="/image/Logo Softline.png" alt="Soft Line Sistemas" class="logo-img" />
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="/">Página Inicial</a>
+        <a href="/#sobre">Sobre Nós</a>
+        <a href="/#projetos">Nossos Sistemas</a>
+        <a href="/#contato">Fale Conosco</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+      <div class="hero-section">
+        <span class="badge">Informativos</span>
+        <h1>Soft Line Sistemas</h1>
+        <p class="subtitle">Acompanhe aqui comunicados oficiais, novidades fiscais, atualizações de sistemas e dicas de tecnologia.</p>
+      </div>
+
+      <div class="news-list">
+        <!-- Card 1 -->
+        <div class="card">
+          <div class="card-meta">
+            <span class="card-category">Legislação</span>
+            <span class="card-date">Junho de 2026</span>
+          </div>
+          <h2 class="card-title">Compliance Fiscal & NFS-e Nacional</h2>
+          <div class="card-content">
+            <p>Nossa equipe de engenharia e consultoria fiscal está monitorando de perto todas as mudanças nas legislações estaduais e municipais. Todas as nossas soluções de ERP corporativo já contam com suporte atualizado aos padrões da NFS-e Nacional e demais exigências regulatórias. Mantemos o seu negócio em total conformidade tributária de forma automatizada e transparente.</p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+          <div class="card-meta">
+            <span class="card-category">Tecnologia</span>
+            <span class="card-date">Maio de 2026</span>
+          </div>
+          <h2 class="card-title">Segurança e Backup Automático em Nuvem</h2>
+          <div class="card-content">
+            <p>A segurança da informação é um pilar essencial da Soft Line Sistemas. Reforçamos a importância de verificar a configuração dos seus backups diários automáticos. Em nossos sistemas baseados em nuvem, essa rotina é executada de forma nativa e protegida. Se a sua empresa utiliza servidor local, certifique-se de que os backups externos estão sendo gerados corretamente ou entre em contato com nossa equipe para migrar para a nuvem.</p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card">
+          <div class="card-meta">
+            <span class="card-category">Atualização</span>
+            <span class="card-date">Abril de 2026</span>
+          </div>
+          <h2 class="card-title">Melhorias Contínuas no ERP Enterprise</h2>
+          <div class="card-content">
+            <p>Confira as últimas melhorias de performance e usabilidade implementadas no nosso ERP Enterprise. As consultas de relatórios financeiros foram otimizadas, permitindo carregamento em lote até 40% mais rápido. Além disso, lançamos um novo painel simplificado para controle de faturamento e fluxo de caixa, facilitando a gestão do seu dia a dia corporativo.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Call To Action -->
+      <div class="cta-box">
+        <h2>Precisa de Suporte Técnico?</h2>
+        <p>Se você tem dúvidas sobre as últimas atualizações, ou precisa de suporte técnico para o seu sistema Soft Line, nosso time de atendimento está pronto para ajudar.</p>
+        <a href="https://wa.me/5571993703911" target="_blank" class="btn">Chamar no WhatsApp</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-info">
+        <p><strong>Soft Line Sistemas</strong> - Consultoria em Sistemas de Informação</p>
+        <p>Rua Conselheiro Dantas, 5 - Comércio, Salvador - BA | CEP: 40015-070</p>
+        <p>Telefone / WhatsApp: (71) 99370-3911 | E-mail: comercial@softlineinfo.com.br</p>
+      </div>
+      <div class="copyright">
+        &copy; 2026 Soft Line Sistemas. Todos os direitos reservados.
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
