@@ -25,12 +25,15 @@
     .widget-container {
       width: 100%;
       height: 100%;
+      padding: 12px;
+      background: #ffffff;
+      /* Modern gradient */
+      background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+      position: relative;
+      /* Flexbox for modern browsers */
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 14px;
-      background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
-      position: relative;
     }
 
     /* Top Premium Accent Line */
@@ -40,86 +43,94 @@
       left: 0;
       right: 0;
       height: 4px;
+      background: #1e53b8;
       background: linear-gradient(90deg, #1e53b8 0%, #10b981 100%);
     }
 
     /* Header (Logo + Indicators) */
     .header {
+      height: 28px;
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 28px;
-      margin-bottom: 8px;
     }
 
     .logo-img {
       height: 24px;
       max-width: 120px;
       object-fit: contain;
+      float: left; /* legacy layout float */
     }
 
-    /* CSS Synchronized Carousel Indicators */
+    /* Carousel Indicators */
     .indicators {
       display: flex;
-      gap: 4px;
+      gap: 5px;
+      float: right; /* legacy layout float */
+      margin-top: 8px;
     }
 
     .dot {
       width: 6px;
       height: 6px;
-      border-radius: 50%;
+      border-radius: 3px;
       background-color: #cbd5e1;
       display: inline-block;
-      animation-duration: 16s;
-      animation-iteration-count: infinite;
-      animation-timing-function: ease-in-out;
+      transition: background-color 0.2s ease, transform 0.2s ease;
     }
 
-    .dot-1 { animation-name: dot-active-1; }
-    .dot-2 { animation-name: dot-active-2; }
-    .dot-3 { animation-name: dot-active-3; }
-    .dot-4 { animation-name: dot-active-4; }
+    .dot.active {
+      background-color: #1e53b8;
+      transform: scale(1.3);
+    }
 
     /* Content Area (Slides Container) */
     .slides-container {
-      flex-grow: 1;
+      height: 110px; /* Fixed height to prevent collapsing in legacy browsers */
       position: relative;
       width: 100%;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
+      overflow: hidden;
+      clear: both; /* Clear header floats */
     }
 
-    /* Pure CSS Carousel Animation */
+    /* Slide Layout (Hidden by default) */
     .slide {
+      display: none;
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      opacity: 0;
-      display: flex;
-      flex-direction: row; /* Two-column layout for image + text */
-      align-items: center;
-      gap: 12px;
-      animation-duration: 16s;
-      animation-iteration-count: infinite;
-      animation-timing-function: ease-in-out;
     }
 
-    .slide-1 { animation-name: fade-1; }
-    .slide-2 { animation-name: fade-2; }
-    .slide-3 { animation-name: fade-3; }
-    .slide-4 { animation-name: fade-4; }
+    /* Active Slide state */
+    .slide.active {
+      display: block; /* Safe legacy display */
+    }
+
+    /* Modern Flex Layout if supported */
+    @supports (display: flex) {
+      .slide.active {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+      }
+    }
 
     /* Left Side: System Thumbnail Wrapper */
     .slide-img-wrapper {
-      width: 85px;
-      height: 85px;
+      width: 80px;
+      height: 80px;
       border-radius: 8px;
       overflow: hidden;
       border: 1px solid #e2e8f0;
       background-color: #ffffff;
-      flex-shrink: 0;
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      float: left; /* legacy layout float */
+      margin-right: 12px;
     }
 
     .slide-img {
@@ -131,18 +142,23 @@
 
     /* Right Side: Text info */
     .slide-info {
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      float: left; /* legacy layout float */
+      width: 65%; /* legacy layout width fallback */
+    }
+
+    @supports (display: flex) {
+      .slide-info {
+        float: none;
+        width: auto;
+      }
     }
 
     /* Badges */
     .badge {
-      align-self: flex-start;
+      display: inline-block;
       font-size: 8px;
       font-weight: 800;
-      padding: 2.5px 7px;
+      padding: 2px 7px;
       border-radius: 9999px;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -188,8 +204,17 @@
       line-height: 1.35;
     }
 
+    /* Clear Floats Utility */
+    .slide::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
     /* Footer / Support Call-To-Action */
     .footer {
+      height: 55px;
+      clear: both;
       display: flex;
       flex-direction: column;
       gap: 5px;
@@ -198,6 +223,7 @@
     .btn-support {
       display: block;
       width: 100%;
+      background: #1e53b8;
       background: linear-gradient(135deg, #1e53b8 0%, #1d4ed8 100%);
       color: #ffffff;
       text-align: center;
@@ -228,55 +254,11 @@
       text-decoration: underline;
     }
 
-    /* --- CSS CAROUSEL KEYFRAMES (16s cycle: 4s per slide) --- */
-    @keyframes fade-1 {
-      0%, 20% { opacity: 1; z-index: 10; transform: scale(1) translateY(0); }
-      23%, 97% { opacity: 0; z-index: 1; transform: scale(0.95) translateY(5px); }
-      100% { opacity: 1; z-index: 10; transform: scale(1) translateY(0); }
-    }
-    @keyframes fade-2 {
-      0%, 22% { opacity: 0; z-index: 1; transform: scale(0.95) translateY(5px); }
-      25%, 45% { opacity: 1; z-index: 10; transform: scale(1) translateY(0); }
-      48%, 100% { opacity: 0; z-index: 1; transform: scale(0.95) translateY(5px); }
-    }
-    @keyframes fade-3 {
-      0%, 47% { opacity: 0; z-index: 1; transform: scale(0.95) translateY(5px); }
-      50%, 70% { opacity: 1; z-index: 10; transform: scale(1) translateY(0); }
-      73%, 100% { opacity: 0; z-index: 1; transform: scale(0.95) translateY(5px); }
-    }
-    @keyframes fade-4 {
-      0%, 72% { opacity: 0; z-index: 1; transform: scale(0.95) translateY(5px); }
-      75%, 95% { opacity: 1; z-index: 10; transform: scale(1) translateY(0); }
-      98%, 100% { opacity: 0; z-index: 1; transform: scale(0.95) translateY(5px); }
-    }
-
-    /* --- INDICATOR KEYFRAMES --- */
-    @keyframes dot-active-1 {
-      0%, 20% { background-color: #1e53b8; transform: scale(1.3); }
-      23%, 97% { background-color: #cbd5e1; transform: scale(1); }
-      100% { background-color: #1e53b8; transform: scale(1.3); }
-    }
-    @keyframes dot-active-2 {
-      0%, 22% { background-color: #cbd5e1; transform: scale(1); }
-      25%, 45% { background-color: #1e53b8; transform: scale(1.3); }
-      48%, 100% { background-color: #cbd5e1; transform: scale(1); }
-    }
-    @keyframes dot-active-3 {
-      0%, 47% { background-color: #cbd5e1; transform: scale(1); }
-      50%, 70% { background-color: #1e53b8; transform: scale(1.3); }
-      73%, 100% { background-color: #cbd5e1; transform: scale(1); }
-    }
-    @keyframes dot-active-4 {
-      0%, 72% { background-color: #cbd5e1; transform: scale(1); }
-      75%, 95% { background-color: #1e53b8; transform: scale(1.3); }
-      98%, 100% { background-color: #cbd5e1; transform: scale(1); }
-    }
-
     /* Responsive adjustments for micro-viewports */
     @media (max-height: 220px) {
       .logo-img { height: 16px; }
       .slide-img-wrapper { width: 60px; height: 60px; }
-      .badge { margin-bottom: 2px; padding: 1px 5px; }
+      .badge { margin-bottom: 2.5px; padding: 1px 5px; }
       .title { font-size: 11px; margin-bottom: 2px; }
       .text { font-size: 9.5px; line-height: 1.25; }
       .btn-support { padding: 6px; font-size: 10px; }
@@ -295,12 +277,12 @@
     <div class="header">
       <img src="/image/Logo Softline.png" alt="Soft Line" class="logo-img" />
       
-      <!-- Synchronized Dots Indicators -->
+      <!-- Dots Indicators -->
       <div class="indicators">
-        <span class="dot dot-1"></span>
-        <span class="dot dot-2"></span>
-        <span class="dot dot-3"></span>
-        <span class="dot dot-4"></span>
+        <span id="dot-1" class="dot active"></span>
+        <span id="dot-2" class="dot"></span>
+        <span id="dot-3" class="dot"></span>
+        <span id="dot-4" class="dot"></span>
       </div>
     </div>
 
@@ -308,7 +290,7 @@
     <div class="slides-container">
       
       <!-- Slide 1: ERP Enterprise -->
-      <div class="slide slide-1">
+      <div id="slide-1" class="slide active">
         <div class="slide-img-wrapper">
           <img src="/image/autoservice.png" alt="ERP" class="slide-img" />
         </div>
@@ -320,7 +302,7 @@
       </div>
 
       <!-- Slide 2: NFS-e Nacional -->
-      <div class="slide slide-2">
+      <div id="slide-2" class="slide">
         <div class="slide-img-wrapper">
           <img src="/image/nfse.png" alt="NFS-e" class="slide-img" />
         </div>
@@ -332,7 +314,7 @@
       </div>
 
       <!-- Slide 3: Facial Ponto -->
-      <div class="slide slide-3">
+      <div id="slide-3" class="slide">
         <div class="slide-img-wrapper">
           <img src="/image/facial.png" alt="Facial" class="slide-img" />
         </div>
@@ -344,7 +326,7 @@
       </div>
 
       <!-- Slide 4: Callsoft CRM -->
-      <div class="slide slide-4">
+      <div id="slide-4" class="slide">
         <div class="slide-img-wrapper">
           <img src="/image/callsoft.png" alt="Callsoft" class="slide-img" />
         </div>
@@ -368,6 +350,59 @@
     </div>
 
   </div>
+
+  <!-- ES5 Legacy-Safe JavaScript Slideshow -->
+  <script type="text/javascript">
+    (function() {
+      var slides = [
+        document.getElementById("slide-1"),
+        document.getElementById("slide-2"),
+        document.getElementById("slide-3"),
+        document.getElementById("slide-4")
+      ];
+      var dots = [
+        document.getElementById("dot-1"),
+        document.getElementById("dot-2"),
+        document.getElementById("dot-3"),
+        document.getElementById("dot-4")
+      ];
+      var currentSlide = 0;
+
+      function showSlide(index) {
+        for (var i = 0; i < slides.length; i++) {
+          if (slides[i]) {
+            if (i === index) {
+              slides[i].className = "slide active";
+            } else {
+              slides[i].className = "slide";
+            }
+          }
+        }
+        for (var j = 0; j < dots.length; j++) {
+          if (dots[j]) {
+            if (j === index) {
+              dots[j].className = "dot active";
+            } else {
+              dots[j].className = "dot";
+            }
+          }
+        }
+      }
+
+      function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+      }
+
+      // Safe check and trigger
+      if (slides[0]) {
+        // Force initial display fix
+        showSlide(0);
+        // Change slide every 4 seconds
+        setInterval(nextSlide, 4000);
+      }
+    })();
+  </script>
 
 </body>
 </html>
