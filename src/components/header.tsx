@@ -110,9 +110,11 @@ export function Header() {
   const { t } = useLanguage()
 
   const navItems = [
-    { name: t("nav.about"), href: "#sobre" },
-    { name: t("nav.projects"), href: "#projetos" },
-    { name: t("nav.contact"), href: "#contato" },
+    { name: t("nav.about"), href: "/#sobre" },
+    { name: t("nav.projects"), href: "/#projetos" },
+    { name: t("nav.erp"), href: "/#erp" },
+    { name: t("nav.enterprise"), href: "/enterprise" },
+    { name: t("nav.contact"), href: "/#contato" },
   ]
 
   return (
@@ -120,12 +122,12 @@ export function Header() {
       <div className="container flex h-20 items-center justify-between">
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center gap-3">
-            <div className="relative h-12 w-52 transition-transform hover:scale-[1.02]">
+            <div className="relative h-15 w-64 transition-transform hover:scale-[1.02]">
               <Image 
                 src="/image/Logo Softline.png" 
                 alt="Soft Line Sistemas" 
                 fill 
-                className="object-contain"
+                className="object-contain dark:brightness-0 dark:invert"
                 priority
               />
             </div>

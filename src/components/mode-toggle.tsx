@@ -24,16 +24,22 @@ export function ModeToggle() {
           <span className="sr-only">Alternar tema</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
+      <DropdownMenuContent align="end" className="w-56">
+        <DropdownMenuItem onClick={() => setTheme("light")} className="cursor-pointer">
           Claro
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
+        <DropdownMenuItem onClick={() => setTheme("dark")} className="cursor-pointer">
           Escuro
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
+        <DropdownMenuItem onClick={() => setTheme("system")} className="cursor-pointer">
           Sistema
         </DropdownMenuItem>
+        <div className="p-2 text-xs border-t text-muted-foreground bg-muted/20">
+          <strong>O que é sistema?</strong>
+          <p className="mt-1 text-[11px] leading-normal text-muted-foreground/80">
+            Ajusta automaticamente a aparência com base nas configurações de tema do seu próprio dispositivo ou sistema operacional.
+          </p>
+        </div>
       </DropdownMenuContent>
     </DropdownMenu>
   )

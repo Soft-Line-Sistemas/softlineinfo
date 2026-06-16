@@ -26,7 +26,7 @@ export const projects: Project[] = [
     id: 1,
     slug: "autoservice",
     image: "/image/autoservice.png",
-    link: "https://autoservice.gleeze.com/",
+    link: "https://autoservico.softlineinfo.com.br/login",
     technologies: ["React", "Python", "Django", "SQL Server"],
     translations: {
       pt: {
@@ -93,54 +93,54 @@ export const projects: Project[] = [
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "SQL Server"],
     translations: {
       pt: {
-        title: "Planvita - Saúde Integrada",
+        title: "PlanVita - Planos Funerários",
         category: "SaaS",
-        tags: ["Saúde", "Benefícios", "Portal"],
-        description: "Plataforma de gestão de benefícios e saúde corporativa.",
-        fullDescription: "Planvita é uma plataforma inovadora que conecta empresas, colaboradores e prestadores de serviços de saúde. O sistema facilita a gestão de benefícios corporativos, agendamento de consultas e acompanhamento de programas de saúde preventiva, garantindo conformidade com a LGPD e regulamentações da ANS.",
+        tags: ["Gestão", "Planos Funerários", "Portal"],
+        description: "Plataforma completa para gestão e administração de planos funerários.",
+        fullDescription: "PlanVita é uma plataforma inovadora desenvolvida para simplificar a administração de planos funerários e benefícios associados. O sistema automatiza o controle de contratos, pagamentos de mensalidades, gestão de carências, atendimento a famílias e acionamento de serviços parceiros, garantindo eficiência operacional e segurança jurídica.",
         objectives: [
-          "Simplificar a administração de benefícios de saúde.",
-          "Oferecer um portal de autoatendimento para colaboradores.",
-          "Integrar com redes de prestadores de serviços."
+          "Automatizar o controle de contratos e mensalidades.",
+          "Simplificar a gestão de carências e dependentes.",
+          "Integrar o atendimento de assistência com parceiros e prestadores."
         ],
         results: [
-          "Mais de 50.000 vidas gerenciadas na plataforma.",
-          "Redução de 40% nos custos operacionais de RH.",
-          "Acesso simplificado a redes de saúde para colaboradores."
+          "Mais de 50.000 vidas ativas gerenciadas na plataforma.",
+          "Redução de 40% no tempo de atendimento ao cliente.",
+          "Controle financeiro de mensalidades e inadimplência otimizado."
         ]
       },
       en: {
-        title: "Planvita - Integrated Health",
+        title: "PlanVita - Funeral Plans",
         category: "SaaS",
-        tags: ["Health", "Benefits", "Portal"],
-        description: "Management platform for corporate health and benefits.",
-        fullDescription: "Planvita is an innovative platform that connects companies, employees, and healthcare providers. The system facilitates corporate benefits administration, appointment scheduling, and preventive health program monitoring, ensuring compliance with LGPD (Brazilian GDPR) and ANS regulations.",
+        tags: ["Management", "Funeral Plans", "Portal"],
+        description: "Complete platform for the management and administration of funeral plans.",
+        fullDescription: "PlanVita is an innovative platform developed to simplify the administration of funeral plans and associated benefits. The system automates contract control, monthly payments, grace period management, family support, and partner service dispatch, ensuring operational efficiency and legal compliance.",
         objectives: [
-          "Simplify health benefits administration.",
-          "Offer a self-service portal for employees.",
-          "Integrate with healthcare provider networks."
+          "Automate contract and monthly payment control.",
+          "Simplify the management of grace periods and dependents.",
+          "Integrate assistance service dispatch with partners and providers."
         ],
         results: [
-          "Over 50,000 lives managed on the platform.",
-          "40% reduction in HR operational costs.",
-          "Simplified access to healthcare networks for employees."
+          "Over 50,000 active lives managed on the platform.",
+          "45% reduction in customer service response time.",
+          "Optimized financial control of monthly payments and default rates."
         ]
       },
       es: {
-        title: "Planvita - Salud Integrada",
+        title: "PlanVita - Planes Funerarios",
         category: "SaaS",
-        tags: ["Salud", "Beneficios", "Portal"],
-        description: "Plataforma de gestión de beneficios y salud corporativa.",
-        fullDescription: "Planvita es una plataforma innovadora que conecta empresas, colaboradores y proveedores de servicios de salud. El sistema facilita la gestión de beneficios corporativos, programación de citas y seguimiento de programas de salud preventiva, garantizando el cumplimiento de la LGPD y las regulaciones de la ANS.",
+        tags: ["Gestión", "Planes Funerarios", "Portal"],
+        description: "Plataforma completa para la gestión y administración de planes funerarios.",
+        fullDescription: "PlanVita es una plataforma innovadora desarrollada para simplificar la administración de planes funerarios y beneficios asociados. El sistema automatiza el control de contratos, pagos mensuales, gestión de períodos de carencia, atención a las familias y activación de servicios asociados, garantizando la eficiencia operativa y el cumplimiento legal.",
         objectives: [
-          "Simplificar la administración de beneficios de salud.",
-          "Ofrecer un portal de autoservicio para los colaboradores.",
-          "Integrar con redes de proveedores de salud."
+          "Automatizar el control de contratos y mensualidades.",
+          "Simplificar la gestión de carencias y dependientes.",
+          "Integrar la atención de asistencia con socios y proveedores."
         ],
         results: [
-          "Más de 50.000 vidas gestionadas en la plataforma.",
-          "Reducción del 40% en los costos operativos de RRHH.",
-          "Acceso simplificado a redes de salud para los colaboradores."
+          "Más de 50.000 vidas activas gestionadas en la plataforma.",
+          "Reducción del 40% en el tiempo de servicio al cliente.",
+          "Control financiero optimizado de mensualidades y morosidad."
         ]
       }
     }

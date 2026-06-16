@@ -129,10 +129,10 @@ export function ContactSection() {
   }
 
   return (
-    <section id="contato" className="w-full py-8 md:py-12 relative overflow-hidden bg-slate-950">
+    <section id="contato" className="w-full py-8 md:py-12 relative overflow-hidden bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
       {/* Background Decoration */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-[128px] pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-green-500/20 rounded-full blur-[128px] pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/10 dark:bg-blue-600/20 rounded-full blur-[128px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-green-500/10 dark:bg-green-500/20 rounded-full blur-[128px] pointer-events-none" />
       
       <div className="container grid items-start gap-12 lg:grid-cols-2 relative z-10">
         <motion.div 
@@ -143,28 +143,28 @@ export function ContactSection() {
           className="space-y-8"
         >
           <div className="space-y-4">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl text-white">
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl text-slate-900 dark:text-white">
               {t("contact.title")}
             </h2>
-            <p className="max-w-[600px] text-slate-300 md:text-lg leading-relaxed">
+            <p className="max-w-[600px] text-slate-600 dark:text-slate-300 md:text-lg leading-relaxed">
               {t("contact.desc")}
             </p>
           </div>
           <div className="grid gap-8">
             <div className="flex items-start gap-5">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5 text-blue-400 shrink-0 border border-white/10 backdrop-blur-md">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 dark:bg-white/5 text-blue-600 dark:text-blue-400 shrink-0 border border-slate-200 dark:border-white/10 backdrop-blur-md">
                 <MapPin className="h-6 w-6" />
               </div>
               <div className="space-y-3 w-full">
                 <div>
-                  <h3 className="font-semibold text-lg text-white">{t("contact.headquarters")}</h3>
-                  <p className="text-slate-400 leading-snug">
+                  <h3 className="font-semibold text-lg text-slate-900 dark:text-white">{t("contact.headquarters")}</h3>
+                  <p className="text-slate-600 dark:text-slate-400 leading-snug">
                     R. Conselheiro Dantas, 5 - Comércio<br/>
                     Salvador - BA, 40015-070
                   </p>
                 </div>
                 {/* Map Integration */}
-                <div className="w-full h-[220px] rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+                <div className="w-full h-[220px] rounded-2xl overflow-hidden border border-slate-200 dark:border-white/10 shadow-xl dark:shadow-2xl">
                   <iframe 
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.893123847847!2d-38.5144!3d-12.9694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x71604e7c3a0b8d5%3A0x0!2sR.%20Conselheiro%20Dantas%2C%205%20-%20Com%C3%A9rcio%2C%20Salvador%20-%20BA%2C%2040015-070!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr" 
                     width="100%" 
@@ -177,12 +177,12 @@ export function ContactSection() {
                   ></iframe>
                 </div>
                 <div className="flex flex-wrap gap-3">
-                   <Button variant="secondary" size="sm" className="h-9 gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/10 backdrop-blur-sm" asChild>
+                   <Button variant="secondary" size="sm" className="h-9 gap-2 bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 dark:bg-white/10 dark:hover:bg-white/20 dark:text-white dark:border-white/10 backdrop-blur-sm shadow-sm" asChild>
                      <a href="https://www.google.com/maps/dir/?api=1&destination=R.+Conselheiro+Dantas,+5+-+Comércio,+Salvador+-+BA,+40015-070" target="_blank" rel="noopener noreferrer">
                        <MapIcon className="h-4 w-4" /> {t("contact.maps")}
                      </a>
                    </Button>
-                   <Button variant="secondary" size="sm" className="h-9 gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/10 backdrop-blur-sm" asChild>
+                   <Button variant="secondary" size="sm" className="h-9 gap-2 bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 dark:bg-white/10 dark:hover:bg-white/20 dark:text-white dark:border-white/10 backdrop-blur-sm shadow-sm" asChild>
                      <a href="https://m.uber.com/ul/?action=setPickup&client_id=uber&pickup=my_location&dropoff[formatted_address]=R.%20Conselheiro%20Dantas%2C%205%20-%20Com%C3%A9rcio%2C%20Salvador%20-%20BA%2C%2040015-070" target="_blank" rel="noopener noreferrer">
                        <Car className="h-4 w-4" /> {t("contact.uber")}
                      </a>
@@ -193,13 +193,13 @@ export function ContactSection() {
 
             <div className="grid sm:grid-cols-2 gap-6">
               <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5 text-green-400 shrink-0 border border-white/10 backdrop-blur-md">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 dark:bg-white/5 text-green-600 dark:text-green-400 shrink-0 border border-slate-200 dark:border-white/10 backdrop-blur-md">
                   <Phone className="h-6 w-6" />
                 </div>
                 <div className="space-y-2">
-                  <h3 className="font-semibold text-lg text-white">{t("contact.hours")}</h3>
-                  <p className="text-sm text-slate-400">{t("contact.hours.detail")}</p>
-                  <Button variant="outline" size="sm" className="bg-green-600/20 hover:bg-green-600/30 text-green-400 border-green-600/30 shadow-sm w-full sm:w-auto hover:text-green-300" asChild>
+                  <h3 className="font-semibold text-lg text-slate-900 dark:text-white">{t("contact.hours")}</h3>
+                  <p className="text-sm text-slate-600 dark:text-slate-400">{t("contact.hours.detail")}</p>
+                  <Button variant="outline" size="sm" className="bg-green-50 hover:bg-green-100 text-green-700 border-green-200 dark:bg-green-600/20 dark:hover:bg-green-600/30 dark:text-green-400 dark:border-green-600/30 shadow-sm w-full sm:w-auto" asChild>
                     <a href="https://wa.me/5571993703911" target="_blank" rel="noopener noreferrer">
                       <MessageCircle className="mr-2 h-4 w-4" /> WhatsApp
                     </a>
@@ -208,12 +208,12 @@ export function ContactSection() {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5 text-blue-400 shrink-0 border border-white/10 backdrop-blur-md">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 dark:bg-white/5 text-blue-600 dark:text-blue-400 shrink-0 border border-slate-200 dark:border-white/10 backdrop-blur-md">
                   <Mail className="h-6 w-6" />
                 </div>
                 <div className="space-y-1">
-                   <h3 className="font-semibold text-lg text-white">{t("contact.email")}</h3>
-                   <a href="mailto:comercial@softlineinfo.com.br" className="text-sm text-slate-400 hover:text-white transition-colors">
+                   <h3 className="font-semibold text-lg text-slate-900 dark:text-white">{t("contact.email")}</h3>
+                   <a href="mailto:comercial@softlineinfo.com.br" className="text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
                      comercial@softlineinfo.com.br
                    </a>
                    <p className="text-xs text-slate-500 mt-1">{t("contact.email.detail")}</p>
@@ -228,11 +228,11 @@ export function ContactSection() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="bg-white/5 backdrop-blur-2xl rounded-3xl p-8 shadow-2xl border border-white/10"
+          className="bg-white/80 dark:bg-white/5 backdrop-blur-2xl rounded-3xl p-8 shadow-xl dark:shadow-2xl border border-slate-200 dark:border-white/10 shadow-slate-200/50"
         >
           <div className="mb-6">
-            <h3 className="text-xl font-semibold mb-2 text-white">{t("contact.form.title")}</h3>
-            <p className="text-sm text-slate-400">{t("contact.form.desc")}</p>
+            <h3 className="text-xl font-semibold mb-2 text-slate-900 dark:text-white">{t("contact.form.title")}</h3>
+            <p className="text-sm text-slate-600 dark:text-slate-400">{t("contact.form.desc")}</p>
           </div>
           
           <Form {...form}>
@@ -243,9 +243,9 @@ export function ContactSection() {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-slate-300">{t("contact.form.name")}</FormLabel>
+                      <FormLabel className="text-slate-700 dark:text-slate-300">{t("contact.form.name")}</FormLabel>
                       <FormControl>
-                        <Input placeholder={t("contact.form.name.placeholder")} {...field} className="bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus-visible:ring-blue-500/50" />
+                        <Input placeholder={t("contact.form.name.placeholder")} {...field} className="bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus-visible:ring-blue-500/50" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -256,9 +256,9 @@ export function ContactSection() {
                   name="phone"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-slate-300">{t("contact.form.phone")}</FormLabel>
+                      <FormLabel className="text-slate-700 dark:text-slate-300">{t("contact.form.phone")}</FormLabel>
                       <FormControl>
-                        <Input placeholder={t("contact.form.phone.placeholder")} {...field} className="bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus-visible:ring-blue-500/50" />
+                        <Input placeholder={t("contact.form.phone.placeholder")} {...field} className="bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus-visible:ring-blue-500/50" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -271,9 +271,9 @@ export function ContactSection() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-slate-300">{t("contact.form.email")}</FormLabel>
+                      <FormLabel className="text-slate-700 dark:text-slate-300">{t("contact.form.email")}</FormLabel>
                       <FormControl>
-                        <Input placeholder={t("contact.form.email.placeholder")} {...field} className="bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus-visible:ring-blue-500/50" />
+                        <Input placeholder={t("contact.form.email.placeholder")} {...field} className="bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus-visible:ring-blue-500/50" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -284,9 +284,9 @@ export function ContactSection() {
                   name="company"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-slate-300">{t("contact.form.company")}</FormLabel>
+                      <FormLabel className="text-slate-700 dark:text-slate-300">{t("contact.form.company")}</FormLabel>
                       <FormControl>
-                        <Input placeholder={t("contact.form.company.placeholder")} {...field} className="bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus-visible:ring-blue-500/50" />
+                        <Input placeholder={t("contact.form.company.placeholder")} {...field} className="bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus-visible:ring-blue-500/50" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -298,9 +298,9 @@ export function ContactSection() {
                 name="subject"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-slate-300">{t("contact.form.subject")}</FormLabel>
+                    <FormLabel className="text-slate-700 dark:text-slate-300">{t("contact.form.subject")}</FormLabel>
                     <FormControl>
-                      <Input placeholder={t("contact.form.subject.placeholder")} {...field} className="bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus-visible:ring-blue-500/50" />
+                      <Input placeholder={t("contact.form.subject.placeholder")} {...field} className="bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus-visible:ring-blue-500/50" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -311,11 +311,11 @@ export function ContactSection() {
                 name="message"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-slate-300">{t("contact.form.message")}</FormLabel>
+                    <FormLabel className="text-slate-700 dark:text-slate-300">{t("contact.form.message")}</FormLabel>
                     <FormControl>
                       <Textarea 
                         placeholder={t("contact.form.message.placeholder")} 
-                        className="min-h-[120px] bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus-visible:ring-blue-500/50"
+                        className="min-h-[120px] bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus-visible:ring-blue-500/50"
                         {...field} 
                       />
                     </FormControl>

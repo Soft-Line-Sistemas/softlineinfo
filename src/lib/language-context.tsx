@@ -15,9 +15,10 @@ const translations: Record<Language, Record<string, string>> = {
     // Header
     "nav.about": "Sobre",
     "nav.projects": "Projetos",
+    "nav.erp": "ERP",
     "nav.contact": "Contato",
     "nav.brand": "Soft Line Sistemas",
-    "nav.subtitle": "Consultoria em Sistemas de Informação",
+    "nav.subtitle": "Fábrica de Softwares",
     
     // Hero
     "hero.badge": "Soft Line Sistemas • Fábrica de Software",
@@ -161,15 +162,51 @@ const translations: Record<Language, Record<string, string>> = {
     // Parallax
     "parallax.title": "Pronto para impulsionar a inovação no seu negócio?",
     "parallax.desc": "Fale com nossos consultores de tecnologia e desenhe a solução de software ideal para sua empresa.",
-    "parallax.btn": "Falar com Especialista"
+    "parallax.btn": "Falar com Especialista",
+    
+    // Enterprise Page
+    "nav.enterprise": "Enterprise",
+    "enterprise.hero.badge": "Softline Enterprise ERP",
+    "enterprise.hero.title": "O ERP Inteligente que Escala seu Negócio",
+    "enterprise.hero.desc": "Centralize finanças, estoque, vendas e faturamento em uma única plataforma web moderna, segura e desenhada sob medida para a sua operação.",
+    "enterprise.hero.cta": "Agendar Demonstração",
+    "enterprise.modules.badge": "Módulos Integrados",
+    "enterprise.modules.title": "Controle total da sua operação",
+    "enterprise.modules.desc": "Módulos modulares e integrados que se adaptam ao tamanho e às particularidades do seu segmento empresarial.",
+    "enterprise.mod.finance.title": "Gestão Financeira",
+    "enterprise.mod.finance.desc": "Fluxo de caixa em tempo real, contas a pagar e receber, conciliação bancária automatizada e relatórios de DRE automáticos.",
+    "enterprise.mod.billing.title": "Faturamento & NF-e",
+    "enterprise.mod.billing.desc": "Emissão de NF-e, NFS-e e NFC-e em segundos, cálculo automático de impostos complexos e envio automático aos clientes.",
+    "enterprise.mod.inventory.title": "Estoque & Compras",
+    "enterprise.mod.inventory.desc": "Controle de inventário inteligente, rastreamento por lote, alertas de estoque mínimo e ordens de compra automáticas.",
+    "enterprise.mod.sales.title": "Vendas & CRM",
+    "enterprise.mod.sales.desc": "Funil de vendas visual, controle de pedidos, histórico de clientes, tabelas de preço flexíveis e comissões automáticas.",
+    "enterprise.mod.analytics.title": "BI & Analytics",
+    "enterprise.mod.analytics.desc": "Painéis interativos, metas de vendas, margem de contribuição e indicadores estratégicos para tomada de decisões rápidas.",
+    "enterprise.mod.integrations.title": "Integrações ERP",
+    "enterprise.mod.integrations.desc": "Conexão nativa com APIs de bancos, plataformas de e-commerce, gateways de pagamento e serviços de logística.",
+    "enterprise.benefits.title": "Diferenciais do Enterprise",
+    "enterprise.benefits.subtitle": "Por que o ERP da Softline é a escolha certa para a sua empresa.",
+    "enterprise.benefit.multi.title": "Multi-empresa & Multi-filial",
+    "enterprise.benefit.multi.desc": "Gerencie múltiplos CNPJs e filiais de maneira unificada, com estoques e relatórios consolidados ou individuais.",
+    "enterprise.benefit.security.title": "Segurança de Dados (LGPD)",
+    "enterprise.benefit.security.desc": "Criptografia de dados de ponta a ponta, backups automáticos na nuvem e níveis de acesso restritos por perfil de usuário.",
+    "enterprise.benefit.cloud.title": "Disponibilidade 100% Web",
+    "enterprise.benefit.cloud.desc": "Acesse seu sistema de qualquer lugar, a qualquer hora, no computador ou dispositivo móvel, sem necessidade de servidores locais.",
+    "enterprise.benefit.support.title": "Suporte Especializado",
+    "enterprise.benefit.support.desc": "Atendimento humanizado por especialistas e engenheiros dedicados a resolver suas dúvidas e otimizar seus processos.",
+    "enterprise.cta.title": "Pronto para modernizar sua gestão?",
+    "enterprise.cta.desc": "Preencha o formulário e fale com um especialista de ERP da Softline. Desenvolvemos a implantação ideal para sua empresa.",
+    "enterprise.form.submit": "Agendar Apresentação"
   },
   en: {
     // Header
     "nav.about": "About",
     "nav.projects": "Projects",
+    "nav.erp": "ERP",
     "nav.contact": "Contact",
     "nav.brand": "Soft Line Sistemas",
-    "nav.subtitle": "Information Systems Consulting",
+    "nav.subtitle": "Software House",
     
     // Hero
     "hero.badge": "Soft Line Sistemas • Software House",
@@ -313,15 +350,51 @@ const translations: Record<Language, Record<string, string>> = {
     // Parallax
     "parallax.title": "Ready to drive innovation in your business?",
     "parallax.desc": "Talk to our technology consultants and design the ideal software solution for your company.",
-    "parallax.btn": "Talk to an Expert"
+    "parallax.btn": "Talk to an Expert",
+    
+    // Enterprise Page
+    "nav.enterprise": "Enterprise",
+    "enterprise.hero.badge": "Softline Enterprise ERP",
+    "enterprise.hero.title": "The Intelligent ERP that Scales Your Business",
+    "enterprise.hero.desc": "Centralize finance, inventory, sales, and invoicing in a single modern, secure, and custom-tailored web platform.",
+    "enterprise.hero.cta": "Schedule a Demo",
+    "enterprise.modules.badge": "Integrated Modules",
+    "enterprise.modules.title": "Total control over your operations",
+    "enterprise.modules.desc": "Modular and integrated features that adapt to the size and specific needs of your business segment.",
+    "enterprise.mod.finance.title": "Financial Management",
+    "enterprise.mod.finance.desc": "Real-time cash flow, accounts payable/receivable, automated bank reconciliation, and instant P&L reporting.",
+    "enterprise.mod.billing.title": "Invoicing & Taxes",
+    "enterprise.mod.billing.desc": "Issue invoices in seconds, automated calculation of complex taxes, and automated dispatch to clients.",
+    "enterprise.mod.inventory.title": "Inventory & Purchasing",
+    "enterprise.mod.inventory.desc": "Smart inventory control, batch tracking, minimum stock warnings, and automatic purchase orders.",
+    "enterprise.mod.sales.title": "Sales & CRM",
+    "enterprise.mod.sales.desc": "Visual sales pipeline, order management, customer history, flexible price tables, and automated commission calculations.",
+    "enterprise.mod.analytics.title": "BI & Analytics",
+    "enterprise.mod.analytics.desc": "Interactive dashboards, sales goals, contribution margins, and strategic metrics for rapid decision making.",
+    "enterprise.mod.integrations.title": "ERP Integrations",
+    "enterprise.mod.integrations.desc": "Native API connections with major banks, e-commerce platforms, payment gateways, and logistics services.",
+    "enterprise.benefits.title": "Enterprise Differentiators",
+    "enterprise.benefits.subtitle": "Why Softline's ERP is the right choice for your company.",
+    "enterprise.benefit.multi.title": "Multi-company & Multi-branch",
+    "enterprise.benefit.multi.desc": "Manage multiple corporate entities and branches in a unified manner, with consolidated or individual inventory and reporting.",
+    "enterprise.benefit.security.title": "Data Security (GDPR/LGPD)",
+    "enterprise.benefit.security.desc": "End-to-end data encryption, automated cloud backups, and user access levels restricted by role profiles.",
+    "enterprise.benefit.cloud.title": "100% Web Availability",
+    "enterprise.benefit.cloud.desc": "Access your system anywhere, anytime, on desktop or mobile, with no need for local on-premise servers.",
+    "enterprise.benefit.support.title": "Dedicated Support",
+    "enterprise.benefit.support.desc": "Human support from technical experts and engineers dedicated to answering your questions and optimizing your workflows.",
+    "enterprise.cta.title": "Ready to modernize your management?",
+    "enterprise.cta.desc": "Fill out the form and speak to a Softline ERP expert. We will design the perfect implementation plan for your business.",
+    "enterprise.form.submit": "Schedule Presentation"
   },
   es: {
     // Header
     "nav.about": "Sobre",
     "nav.projects": "Proyectos",
+    "nav.erp": "ERP",
     "nav.contact": "Contacto",
     "nav.brand": "Soft Line Sistemas",
-    "nav.subtitle": "Consultoría en Sistemas de Información",
+    "nav.subtitle": "Fábrica de Softwares",
     
     // Hero
     "hero.badge": "Soft Line Sistemas • Fábrica de Software",
@@ -465,7 +538,42 @@ const translations: Record<Language, Record<string, string>> = {
     // Parallax
     "parallax.title": "¿Listo para impulsar la innovación en su negocio?",
     "parallax.desc": "Hable con nuestros consultores de tecnología y diseñe la solución de software ideal para su empresa.",
-    "parallax.btn": "Hablar con un Especialista"
+    "parallax.btn": "Hablar con un Especialista",
+    
+    // Enterprise Page
+    "nav.enterprise": "Enterprise",
+    "enterprise.hero.badge": "Softline Enterprise ERP",
+    "enterprise.hero.title": "El ERP Inteligente que Escala su Negocio",
+    "enterprise.hero.desc": "Centralice finanzas, inventario, ventas y facturación en una única plataforma web moderna, segura y diseñada a medida para su operación.",
+    "enterprise.hero.cta": "Programar Demostración",
+    "enterprise.modules.badge": "Módulos Integrados",
+    "enterprise.modules.title": "Control total de su operación",
+    "enterprise.modules.desc": "Módulos modulares e integrados que se adaptan al tamaño y particularidades de su sector empresarial.",
+    "enterprise.mod.finance.title": "Gestión Financiera",
+    "enterprise.mod.finance.desc": "Flujo de caja en tiempo real, cuentas por pagar y cobrar, conciliación bancaria automatizada e informes DRE instantáneos.",
+    "enterprise.mod.billing.title": "Facturación e Impuestos",
+    "enterprise.mod.billing.desc": "Emisión de facturas y documentos tributarios en segundos, cálculo automático de impuestos complejos y envío a clientes.",
+    "enterprise.mod.inventory.title": "Inventario y Compras",
+    "enterprise.mod.inventory.desc": "Control inteligente de inventario, seguimiento por lote, alertas de stock mínimo y órdenes de compra automáticas.",
+    "enterprise.mod.sales.title": "Ventas y CRM",
+    "enterprise.mod.sales.desc": "Embudo de ventas visual, control de pedidos, historial de clientes, tarifas de precios flexibles y comisiones automáticas.",
+    "enterprise.mod.analytics.title": "BI y Analítica",
+    "enterprise.mod.analytics.desc": "Paneles interactivos, metas de ventas, márgenes de contribución e indicadores estratégicos para la toma de decisiones rápidas.",
+    "enterprise.mod.integrations.title": "Integraciones ERP",
+    "enterprise.mod.integrations.desc": "Conexión nativa con APIs de bancos, plataformas de e-commerce, pasarelas de pago y servicios de logística.",
+    "enterprise.benefits.title": "Diferenciales de Enterprise",
+    "enterprise.benefits.subtitle": "Por qué el ERP de Softline es la elección correcta para su empresa.",
+    "enterprise.benefit.multi.title": "Multi-empresa y Multi-sucursal",
+    "enterprise.benefit.multi.desc": "Gestione múltiples entidades corporativas y sucursales de manera unificada, con inventarios e informes consolidados o individuales.",
+    "enterprise.benefit.security.title": "Seguridad de Datos (GDPR/LGPD)",
+    "enterprise.benefit.security.desc": "Encriptación de datos de extremo a extremo, copias de seguridad automáticas en la nube y niveles de acceso restringidos por perfil de usuario.",
+    "enterprise.benefit.cloud.title": "Disponibilidade 100% Web",
+    "enterprise.benefit.cloud.desc": "Acceda a su sistema en cualquier lugar y momento, en computadora o móvil, sin necesidad de servidores locales.",
+    "enterprise.benefit.support.title": "Soporte Especializado",
+    "enterprise.benefit.support.desc": "Atención humana por especialistas y ingenieros dedicados a resolver sus dudas y optimizar sus flujos de trabajo.",
+    "enterprise.cta.title": "¿Listo para modernizar su gestión?",
+    "enterprise.cta.desc": "Complete el formulario y hable con un experto en ERP de Softline. Diseñamos la implementación ideal para su empresa.",
+    "enterprise.form.submit": "Programar Presentación"
   }
 }
 
@@ -478,6 +586,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const savedLang = localStorage.getItem("language") as Language
     if (savedLang && ["pt", "en", "es"].includes(savedLang)) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLanguageState(savedLang)
     }
   }, [])

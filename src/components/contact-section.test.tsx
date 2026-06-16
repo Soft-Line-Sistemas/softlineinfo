@@ -1,6 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { ContactSection } from './contact-section'
 import { describe, it, expect, vi } from 'vitest'
+import { LanguageProvider } from '../lib/language-context'
 
 // Mock sonner toast
 vi.mock('sonner', () => ({
@@ -25,7 +26,11 @@ describe('ContactSection', () => {
   });
 
   it('renders contact form fields', () => {
-    render(<ContactSection />)
+    render(
+      <LanguageProvider>
+        <ContactSection />
+      </LanguageProvider>
+    )
     
     expect(screen.getByLabelText(/Nome/i)).toBeDefined()
     expect(screen.getByLabelText(/Email/i)).toBeDefined()
@@ -36,7 +41,11 @@ describe('ContactSection', () => {
   })
 
   it('shows validation errors for empty required fields', async () => {
-    render(<ContactSection />)
+    render(
+      <LanguageProvider>
+        <ContactSection />
+      </LanguageProvider>
+    )
     
     const submitButton = screen.getByRole('button', { name: /Enviar Mensagem/i })
     fireEvent.click(submitButton)
@@ -48,7 +57,11 @@ describe('ContactSection', () => {
   })
 
   it('submits form with valid data', async () => {
-    render(<ContactSection />)
+    render(
+      <LanguageProvider>
+        <ContactSection />
+      </LanguageProvider>
+    )
     
     fireEvent.change(screen.getByLabelText(/Nome/i), { target: { value: 'John Doe' } })
     fireEvent.change(screen.getByLabelText(/Email/i), { target: { value: 'john@example.com' } })

@@ -1,27 +1,11 @@
 "use client"
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ShieldCheck, Database, Layers, Code2, Users, Lightbulb, Rocket, Cpu } from "lucide-react"
+import { Database, Layers, Code2, Lightbulb, Cpu } from "lucide-react"
 import { motion } from "framer-motion"
 import { useLanguage } from "@/lib/language-context"
 
 export function AboutSection() {
   const { t } = useLanguage()
-
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  }
-
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 }
-  }
 
   return (
     <section id="sobre" className="w-full bg-muted/30 py-8 md:py-12 relative overflow-hidden">
@@ -77,11 +61,12 @@ export function AboutSection() {
 
               {/* Feature 2 - Enterprise ERP */}
               <motion.div 
+                id="erp"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="p-8 rounded-3xl bg-white dark:bg-card border shadow-sm hover:shadow-md transition-all group"
+                className="p-8 rounded-3xl bg-white dark:bg-card border shadow-sm hover:shadow-md transition-all group scroll-mt-24"
               >
                 <div className="h-12 w-12 rounded-xl bg-green-50 dark:bg-green-900/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                   <Database className="h-6 w-6 text-green-600 dark:text-green-400" />

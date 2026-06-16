@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence, useInView } from "framer-motion"
-import { ArrowUpRight, Layers, X, ZoomIn, Info, CheckCircle2, Globe, Sparkles } from "lucide-react"
+import { ArrowUpRight, Layers, ZoomIn, Info, CheckCircle2, Globe, Sparkles } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { projects, type Project } from "@/data/projects"
@@ -16,25 +16,20 @@ import {
   SheetTitle,
   SheetDescription,
 } from "@/components/ui/sheet"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 function CountUp({ end, duration = 1.2 }: { end: string; duration?: number }) {
   const [count, setCount] = useState(0)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-50px" })
 
-  // Match numbers like "30", "150", "90", "50.000" (extracting digits and dots if needed)
   const match = end.match(/[\d.,]+/)
-  const numericStr = match ? match[0].replace(/[.,]/g, "") : ""
+  const matchedStr = match ? match[0] : ""
+  const numericStr = matchedStr.replace(/[.,]/g, "")
   const target = numericStr ? parseInt(numericStr, 10) : 0
-  const isPercent = end.includes("%")
-  const isPlus = end.includes("+")
-  const isX = end.includes("x")
 
   useEffect(() => {
-    if (!isInView || target === 0) return
+    if (!isInView || !target) return
 
-    let start = 0
     const endValue = target
     const totalFrames = Math.round(duration * 60)
     let frame = 0
@@ -55,28 +50,18 @@ function CountUp({ end, duration = 1.2 }: { end: string; duration?: number }) {
     return () => clearInterval(counter)
   }, [isInView, target, duration])
 
-  if (target === 0) return <span>{end}</span>
+  if (!match || !target) return <span>{end}</span>
 
   // Format count back with dots if target was originally large (e.g. 50000 -> 50.000)
   const formattedCount = target > 9999 
-    ? count.toLocaleString(undefined).replace(/,/g, ".") 
+    ? count.toLocaleString("pt-BR").replace(/,/g, ".") 
     : count.toString()
 
-  // Re-build original string around the animated number
-  const prefix = isPlus ? "+" : ""
-  const suffix = isPercent ? "%" : isX ? "x" : ""
-  
-  // Extract trailing words (like "Vendas", "Produtividade", "vidas")
-  const restOfString = end.replace(/[\d.,+%x]/g, "").trim()
+  const displayText = isInView 
+    ? end.replace(matchedStr, formattedCount)
+    : end.replace(matchedStr, "0")
 
-  return (
-    <span ref={ref}>
-      {prefix}
-      {isInView ? formattedCount : 0}
-      {suffix}
-      {restOfString ? " " + restOfString : ""}
-    </span>
-  )
+  return <span ref={ref}>{displayText}</span>
 }
 
 export function ProjectsSection() {
@@ -84,6 +69,7 @@ export function ProjectsSection() {
   const [filter, setFilter] = useState("Todos")
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [detailOpen, setDetailOpen] = useState(false)
+  const [activeTab, setActiveTab] = useState("overview")
 
   const categories = [
     { id: "Todos", label: t("portfolio.filter.all") },
@@ -133,6 +119,7 @@ export function ProjectsSection() {
       results: translation.results,
     }
     setSelectedProject(mapped)
+    setActiveTab("overview")
     setDetailOpen(true)
   }
 
@@ -206,7 +193,7 @@ export function ProjectsSection() {
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.4, delay: idx * 0.05 }}
                   key={project.id}
-                  onClick={() => handleOpenDetail(project as any)}
+                  onClick={() => handleOpenDetail(project as unknown as Project)}
                   className={`group relative min-h-[380px] md:min-h-[440px] w-full overflow-hidden rounded-3xl bg-card dark:bg-zinc-900/40 border border-border dark:border-white/5 cursor-pointer shadow-lg transition-all duration-500 hover:shadow-2xl flex flex-col justify-end p-6 md:p-8 ${glowClass} ${
                     isFeatured ? "lg:col-span-2" : "col-span-1"
                   }`}
@@ -265,7 +252,7 @@ export function ProjectsSection() {
                         className="bg-primary hover:bg-primary/95 text-white font-bold rounded-xl shadow-lg shadow-primary/25 transition-all text-xs h-9 px-4 gap-1.5"
                         onClick={(e) => {
                           e.stopPropagation()
-                          handleOpenDetail(project as any)
+                           handleOpenDetail(project as unknown as Project)
                         }}
                       >
                         {t("portfolio.learnMore")} <Info className="h-3.5 w-3.5" />
@@ -308,102 +295,186 @@ export function ProjectsSection() {
 
       {/* Modern project Details Drawer/Sheet */}
       <Sheet open={detailOpen} onOpenChange={setDetailOpen}>
-        <SheetContent className="w-full sm:max-w-2xl overflow-y-auto z-[120] border-l dark:border-white/5 bg-background/95 backdrop-blur-lg">
+        <SheetContent className="w-full sm:max-w-2xl overflow-y-auto z-[120] border-l dark:border-white/5 bg-background/95 backdrop-blur-lg p-0">
+          {/* Ambient Glowing Backgrounds */}
+          <div className="absolute top-0 right-0 w-72 h-72 bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-72 h-72 bg-green-500/5 rounded-full blur-[120px] pointer-events-none" />
+
           {selectedProject && (
-            <div className="space-y-6 pt-4 pb-12">
-              <SheetHeader className="space-y-2">
+            <div className="relative z-10 px-6 md:px-8 pt-8 pb-16 space-y-8">
+              <SheetHeader className="space-y-3">
                 <div className="flex items-center gap-2">
-                  <Badge variant="outline" className="border-primary/30 text-primary bg-primary/5 text-xs font-semibold px-2.5 py-0.5 uppercase tracking-wide">
+                  <Badge variant="outline" className="border-primary/30 text-primary bg-primary/5 text-xs font-bold px-3 py-1 uppercase tracking-wider rounded-lg shadow-sm shadow-primary/5">
                     {selectedProject.translations[language]?.category || selectedProject.translations["pt"]?.category}
                   </Badge>
                 </div>
-                <SheetTitle className="text-3xl font-extrabold tracking-tight leading-tight">
+                <SheetTitle className="text-3xl md:text-4xl font-black tracking-tight leading-tight text-foreground">
                   {selectedProject.translations[language]?.title || selectedProject.translations["pt"]?.title}
                 </SheetTitle>
-                <SheetDescription className="text-sm text-muted-foreground font-medium">
+                <SheetDescription className="text-sm text-muted-foreground font-semibold leading-relaxed">
                   {selectedProject.translations[language]?.description || selectedProject.translations["pt"]?.description}
                 </SheetDescription>
               </SheetHeader>
 
-              {/* Cover Image in Drawer */}
-              <div className="relative aspect-video w-full overflow-hidden rounded-2xl border bg-muted dark:bg-black/50 shadow-inner">
-                <Image
-                  src={selectedProject.image}
-                  alt={selectedProject.translations[language]?.title || selectedProject.translations["pt"]?.title}
-                  fill
-                  className="object-contain p-2"
-                  priority
-                />
+              {/* Cover Image in Drawer - Browser Mockup */}
+              <div className="relative w-full overflow-hidden rounded-2xl border border-border/80 bg-muted/40 dark:bg-zinc-900/60 shadow-2xl backdrop-blur-md">
+                {/* Browser window header controls */}
+                <div className="flex items-center justify-between px-4 py-3 bg-muted/80 dark:bg-zinc-900/85 border-b border-border/85">
+                  <div className="flex space-x-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
+                    <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
+                  </div>
+                  {/* Address bar mockup */}
+                  <div className="flex-1 max-w-xs mx-auto px-3 py-0.5 text-[10px] text-muted-foreground bg-background/50 rounded-md text-center border border-border/50 truncate font-mono select-all">
+                    {selectedProject.link || "https://softlineinfo.com.br"}
+                  </div>
+                  <div className="w-12"></div> {/* Spacer for symmetry */}
+                </div>
+                
+                {/* Screenshot inside mockup */}
+                <div className="relative aspect-video w-full bg-muted/10">
+                  <Image
+                    src={selectedProject.image}
+                    alt={selectedProject.translations[language]?.title || selectedProject.translations["pt"]?.title}
+                    fill
+                    className="object-cover object-top hover:scale-[1.01] transition-transform duration-500"
+                    priority
+                  />
+                </div>
               </div>
 
               {/* Visit Button */}
               {selectedProject.link && (
-                <Button className="w-full h-11 font-bold rounded-xl text-sm shadow-md" asChild>
+                <Button className="w-full h-12 font-bold rounded-2xl text-sm bg-primary hover:bg-primary/95 text-white shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all duration-300 hover:scale-[1.01] gap-2" asChild>
                   <Link href={selectedProject.link} target="_blank" rel="noopener noreferrer">
-                    <Globe className="mr-2 h-4 w-4" /> {t("project.visit")} <ArrowUpRight className="ml-1 h-3.5 w-3.5" />
+                    <Globe className="h-4.5 w-4.5" /> {t("project.visit")} <ArrowUpRight className="h-4 w-4" />
                   </Link>
                 </Button>
               )}
 
-              {/* Tabs for detailed content */}
-              <Tabs defaultValue="overview" className="w-full border rounded-2xl p-4 bg-card/50 shadow-sm">
-                <TabsList className="grid w-full grid-cols-4 rounded-xl bg-muted p-1">
-                  <TabsTrigger value="overview" className="text-xs font-bold rounded-lg cursor-pointer">
-                    {t("project.tabs.overview")}
-                  </TabsTrigger>
-                  <TabsTrigger value="goals" className="text-xs font-bold rounded-lg cursor-pointer">
-                    {t("project.tabs.goals")}
-                  </TabsTrigger>
-                  <TabsTrigger value="results" className="text-xs font-bold rounded-lg cursor-pointer">
-                    {t("project.tabs.results")}
-                  </TabsTrigger>
-                  <TabsTrigger value="tech" className="text-xs font-bold rounded-lg cursor-pointer">
-                    {t("project.tabs.tech")}
-                  </TabsTrigger>
-                </TabsList>
-                
-                <TabsContent value="overview" className="mt-4 focus-visible:ring-0">
-                  <h4 className="font-bold text-sm text-foreground uppercase tracking-wider mb-2">{t("project.about")}</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed font-medium">
-                    {selectedProject.translations[language]?.fullDescription || selectedProject.translations["pt"]?.fullDescription}
-                  </p>
-                </TabsContent>
-                
-                <TabsContent value="goals" className="mt-4 focus-visible:ring-0">
-                  <h4 className="font-bold text-sm text-foreground uppercase tracking-wider mb-3">{t("project.objectives")}</h4>
-                  <ul className="space-y-2.5">
-                    {(selectedProject.translations[language]?.objectives || selectedProject.translations["pt"]?.objectives).map((item, index) => (
-                      <li key={index} className="flex items-start gap-2.5 text-sm text-muted-foreground font-medium">
-                        <CheckCircle2 className="h-4.5 w-4.5 text-primary shrink-0 mt-0.5" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </TabsContent>
-                
-                <TabsContent value="results" className="mt-4 focus-visible:ring-0">
-                  <h4 className="font-bold text-sm text-foreground uppercase tracking-wider mb-3">{t("project.results")}</h4>
-                  <ul className="space-y-2.5">
-                    {(selectedProject.translations[language]?.results || selectedProject.translations["pt"]?.results).map((item, index) => (
-                      <li key={index} className="flex items-start gap-2.5 text-sm text-muted-foreground font-medium">
-                        <CheckCircle2 className="h-4.5 w-4.5 text-green-500 shrink-0 mt-0.5" />
-                        <span><CountUp end={item} /></span>
-                      </li>
-                    ))}
-                  </ul>
-                </TabsContent>
-                
-                <TabsContent value="tech" className="mt-4 focus-visible:ring-0">
-                  <h4 className="font-bold text-sm text-foreground uppercase tracking-wider mb-3">{t("project.tech")}</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedProject.technologies.map((tech) => (
-                      <Badge key={tech} variant="secondary" className="px-3 py-1 font-semibold text-xs rounded-lg">
-                        {tech}
-                      </Badge>
-                    ))}
-                  </div>
-                </TabsContent>
-              </Tabs>
+              {/* Custom Premium Tabs List */}
+              <div className="relative w-full">
+                <div className="flex w-full gap-1.5 p-1.5 bg-muted/50 dark:bg-zinc-900/60 border border-border/45 rounded-2xl backdrop-blur-md">
+                  {[
+                    { id: "overview", label: t("project.tabs.overview") },
+                    { id: "goals", label: t("project.tabs.goals") },
+                    { id: "results", label: t("project.tabs.results") },
+                    { id: "tech", label: t("project.tabs.tech") }
+                  ].map((tab) => {
+                    const isActive = activeTab === tab.id
+                    return (
+                      <button
+                        key={tab.id}
+                        onClick={() => setActiveTab(tab.id)}
+                        className={`flex-1 relative py-2.5 rounded-xl text-xs font-bold transition-all duration-300 cursor-pointer select-none text-center ${
+                          isActive
+                            ? "text-primary-foreground font-black scale-[1.02]"
+                            : "text-muted-foreground hover:text-foreground font-semibold"
+                        }`}
+                      >
+                        {isActive && (
+                          <motion.div
+                            layoutId="activeDetailTab"
+                            className="absolute inset-0 bg-primary rounded-xl -z-10 shadow-md shadow-primary/30"
+                            transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                          />
+                        )}
+                        {tab.label}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+
+              {/* Custom Premium Tab Contents with Slide Transitions */}
+              <div className="w-full relative min-h-[200px]">
+                <AnimatePresence mode="wait">
+                  {activeTab === "overview" && (
+                    <motion.div
+                      key="overview"
+                      initial={{ opacity: 0, y: 12, scale: 0.99 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -12, scale: 0.99 }}
+                      transition={{ duration: 0.22, ease: "easeOut" }}
+                      className="p-6 md:p-8 rounded-3xl border border-border/60 bg-muted/10 dark:bg-zinc-950/20 backdrop-blur-sm space-y-3 shadow-sm"
+                    >
+                      <h4 className="font-extrabold text-sm text-foreground uppercase tracking-widest mb-3">{t("project.about")}</h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed font-semibold">
+                        {selectedProject.translations[language]?.fullDescription || selectedProject.translations["pt"]?.fullDescription}
+                      </p>
+                    </motion.div>
+                  )}
+
+                  {activeTab === "goals" && (
+                    <motion.div
+                      key="goals"
+                      initial={{ opacity: 0, y: 12, scale: 0.99 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -12, scale: 0.99 }}
+                      transition={{ duration: 0.22, ease: "easeOut" }}
+                      className="p-6 md:p-8 rounded-3xl border border-border/60 bg-muted/10 dark:bg-zinc-950/20 backdrop-blur-sm space-y-4 shadow-sm"
+                    >
+                      <h4 className="font-extrabold text-sm text-foreground uppercase tracking-widest mb-2">{t("project.objectives")}</h4>
+                      <ul className="space-y-3.5">
+                        {(selectedProject.translations[language]?.objectives || selectedProject.translations["pt"]?.objectives).map((item, index) => (
+                          <li key={index} className="flex items-start gap-3.5 text-sm text-muted-foreground font-semibold leading-relaxed">
+                            <span className="flex h-5 w-5 rounded-full bg-primary/10 text-primary items-center justify-center shrink-0 mt-0.5">
+                              <CheckCircle2 className="h-3 w-3" />
+                            </span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.div>
+                  )}
+
+                  {activeTab === "results" && (
+                    <motion.div
+                      key="results"
+                      initial={{ opacity: 0, y: 12, scale: 0.99 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -12, scale: 0.99 }}
+                      transition={{ duration: 0.22, ease: "easeOut" }}
+                      className="p-6 md:p-8 rounded-3xl border border-border/60 bg-muted/10 dark:bg-zinc-950/20 backdrop-blur-sm space-y-4 shadow-sm"
+                    >
+                      <h4 className="font-extrabold text-sm text-foreground uppercase tracking-widest mb-2">{t("project.results")}</h4>
+                      <div className="grid grid-cols-1 gap-3.5">
+                        {(selectedProject.translations[language]?.results || selectedProject.translations["pt"]?.results).map((item, index) => (
+                          <div key={index} className="p-4 rounded-2xl border border-border/40 bg-background/50 flex items-start gap-3.5 shadow-inner">
+                            <span className="flex h-6 w-6 rounded-full bg-green-500/10 text-green-500 items-center justify-center shrink-0 mt-0.5">
+                              <CheckCircle2 className="h-3.5 w-3.5" />
+                            </span>
+                            <span className="text-sm font-bold text-muted-foreground leading-snug">
+                              <CountUp end={item} />
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {activeTab === "tech" && (
+                    <motion.div
+                      key="tech"
+                      initial={{ opacity: 0, y: 12, scale: 0.99 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -12, scale: 0.99 }}
+                      transition={{ duration: 0.22, ease: "easeOut" }}
+                      className="p-6 md:p-8 rounded-3xl border border-border/60 bg-muted/10 dark:bg-zinc-950/20 backdrop-blur-sm space-y-4 shadow-sm"
+                    >
+                      <h4 className="font-extrabold text-sm text-foreground uppercase tracking-widest mb-2">{t("project.tech")}</h4>
+                      <div className="flex flex-wrap gap-2.5">
+                        {selectedProject.technologies.map((tech) => (
+                          <Badge key={tech} variant="secondary" className="px-4 py-2 font-extrabold text-xs rounded-xl bg-background border border-border/40 shadow-sm text-foreground hover:bg-background/80 transition-colors">
+                            {tech}
+                          </Badge>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
           )}
         </SheetContent>

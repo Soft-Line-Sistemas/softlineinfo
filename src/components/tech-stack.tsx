@@ -22,7 +22,7 @@ export function TechStack() {
     {
       id: "next",
       name: "Next.js",
-      color: "text-white dark:text-white hover:text-black dark:hover:text-white",
+      color: "text-neutral-900 dark:text-white hover:text-black dark:hover:text-white",
       glowClass: "hover:border-neutral-400/50 hover:shadow-neutral-400/10",
       logo: (
         <svg viewBox="0 0 180 180" className="w-12 h-12 fill-current">
