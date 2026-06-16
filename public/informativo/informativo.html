@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informativo | Soft Line Sistemas</title>
+  <style>
+    /* Reset & Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden; /* Prevent scrollbars in the desktop widget */
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+    }
+
+    /* Premium Compact Widget Layout */
+    .widget-container {
+      width: 100%;
+      height: 100%;
+      padding: 12px;
+      background: #ffffff;
+      /* Modern gradient */
+      background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+      position: relative;
+      /* Flexbox for modern browsers */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Top Premium Accent Line */
+    .top-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: #1e53b8;
+      background: linear-gradient(90deg, #1e53b8 0%, #10b981 100%);
+    }
+
+    /* Header (Logo + Indicators) */
+    .header {
+      height: 28px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-img {
+      height: 24px;
+      max-width: 120px;
+      object-fit: contain;
+      float: left; /* legacy layout float */
+    }
+
+    /* Carousel Indicators */
+    .indicators {
+      display: flex;
+      gap: 5px;
+      float: right; /* legacy layout float */
+      margin-top: 8px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 3px;
+      background-color: #cbd5e1;
+      display: inline-block;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .dot.active {
+      background-color: #1e53b8;
+      transform: scale(1.3);
+    }
+
+    /* Content Area (Slides Container) */
+    .slides-container {
+      height: 110px; /* Fixed height to prevent collapsing in legacy browsers */
+      position: relative;
+      width: 100%;
+      margin-bottom: 8px;
+      overflow: hidden;
+      clear: both; /* Clear header floats */
+    }
+
+    /* Slide Layout (Hidden by default) */
+    .slide {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Active Slide state */
+    .slide.active {
+      display: block; /* Safe legacy display */
+    }
+
+    /* Modern Flex Layout if supported */
+    @supports (display: flex) {
+      .slide.active {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+      }
+    }
+
+    /* Left Side: System Thumbnail Wrapper */
+    .slide-img-wrapper {
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #e2e8f0;
+      background-color: #ffffff;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      float: left; /* legacy layout float */
+      margin-right: 12px;
+    }
+
+    .slide-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    /* Right Side: Text info */
+    .slide-info {
+      float: left; /* legacy layout float */
+      width: 65%; /* legacy layout width fallback */
+    }
+
+    @supports (display: flex) {
+      .slide-info {
+        float: none;
+        width: auto;
+      }
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      font-size: 8px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+
+    .badge-blue {
+      background-color: #eff6ff;
+      color: #1e53b8;
+      border: 1px solid #dbeafe;
+    }
+
+    .badge-green {
+      background-color: #f0fdf4;
+      color: #15803d;
+      border: 1px solid #dcfce7;
+    }
+
+    .badge-purple {
+      background-color: #faf5ff;
+      color: #7e22ce;
+      border: 1px solid #f3e8ff;
+    }
+
+    .badge-orange {
+      background-color: #fff7ed;
+      color: #c2410c;
+      border: 1px solid #ffedd5;
+    }
+
+    .title {
+      font-size: 13px;
+      font-weight: 850;
+      color: #0f172a;
+      margin-bottom: 3px;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+    }
+
+    .text {
+      font-size: 10.5px;
+      color: #475569;
+      line-height: 1.35;
+    }
+
+    /* Clear Floats Utility */
+    .slide::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    /* Footer / Support Call-To-Action */
+    .footer {
+      height: 55px;
+      clear: both;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .btn-support {
+      display: block;
+      width: 100%;
+      background: #1e53b8;
+      background: linear-gradient(135deg, #1e53b8 0%, #1d4ed8 100%);
+      color: #ffffff;
+      text-align: center;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 4px 10px -2px rgba(30, 83, 184, 0.25);
+      border: 1px solid #1d4ed8;
+    }
+
+    .btn-support:hover {
+      background: #1d4ed8;
+    }
+
+    .site-link {
+      display: block;
+      text-align: center;
+      font-size: 9px;
+      color: #64748b;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .site-link:hover {
+      color: #1e53b8;
+      text-decoration: underline;
+    }
+
+    /* Responsive adjustments for micro-viewports */
+    @media (max-height: 220px) {
+      .logo-img { height: 16px; }
+      .slide-img-wrapper { width: 60px; height: 60px; }
+      .badge { margin-bottom: 2.5px; padding: 1px 5px; }
+      .title { font-size: 11px; margin-bottom: 2px; }
+      .text { font-size: 9.5px; line-height: 1.25; }
+      .btn-support { padding: 6px; font-size: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Accent Bar -->
+  <div class="top-bar"></div>
+
+  <!-- Widget Container -->
+  <div class="widget-container">
+    
+    <!-- Header -->
+    <div class="header">
+      <img src="/image/Logo Softline.png" alt="Soft Line" class="logo-img" />
+      
+      <!-- Dots Indicators -->
+      <div class="indicators">
+        <span id="dot-1" class="dot active"></span>
+        <span id="dot-2" class="dot"></span>
+        <span id="dot-3" class="dot"></span>
+        <span id="dot-4" class="dot"></span>
+      </div>
+    </div>
+
+    <!-- Slides Area -->
+    <div class="slides-container">
+      
+      <!-- Slide 1: ERP Enterprise -->
+      <div id="slide-1" class="slide active">
+        <div class="slide-img-wrapper">
+          <img src="/image/autoservice.png" alt="ERP" class="slide-img" />
+        </div>
+        <div class="slide-info">
+          <span class="badge badge-blue">Gestão Integrada</span>
+          <h2 class="title">ERP Enterprise Completo</h2>
+          <p class="text">Automatize faturamento, estoque, financeiro e tome decisões ágeis com relatórios gerenciais estruturados.</p>
+        </div>
+      </div>
+
+      <!-- Slide 2: NFS-e Nacional -->
+      <div id="slide-2" class="slide">
+        <div class="slide-img-wrapper">
+          <img src="/image/nfse.png" alt="NFS-e" class="slide-img" />
+        </div>
+        <div class="slide-info">
+          <span class="badge badge-green">Fiscal & XML</span>
+          <h2 class="title">NFS-e Nacional Integrada</h2>
+          <p class="text">Emissão automática e simplificada de notas fiscais de serviço eletrônicas, integrada a centenas de municípios.</p>
+        </div>
+      </div>
+
+      <!-- Slide 3: Facial Ponto -->
+      <div id="slide-3" class="slide">
+        <div class="slide-img-wrapper">
+          <img src="/image/facial.png" alt="Facial" class="slide-img" />
+        </div>
+        <div class="slide-info">
+          <span class="badge badge-purple">Segurança MTE</span>
+          <h2 class="title">Ponto Facial Inteligente</h2>
+          <p class="text">Registro eletrônico de jornada com reconhecimento facial e geolocalização, em conformidade com a Portaria 671 MTE.</p>
+        </div>
+      </div>
+
+      <!-- Slide 4: Callsoft CRM -->
+      <div id="slide-4" class="slide">
+        <div class="slide-img-wrapper">
+          <img src="/image/callsoft.png" alt="Callsoft" class="slide-img" />
+        </div>
+        <div class="slide-info">
+          <span class="badge badge-orange">Vendas & CRM</span>
+          <h2 class="title">Callsoft CRM & Telefonia</h2>
+          <p class="text">Eleve suas vendas! CRM com VoIP integrado, discagem automática inteligente e gravação de chamadas.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer Action -->
+    <div class="footer">
+      <a href="https://wa.me/5571993703911" target="_blank" class="btn-support">
+        Falar com Suporte WhatsApp
+      </a>
+      <a href="https://www.softlineinfo.com.br" target="_blank" class="site-link">
+        www.softlineinfo.com.br
+      </a>
+    </div>
+
+  </div>
+
+  <!-- ES5 Legacy-Safe JavaScript Slideshow -->
+  <script type="text/javascript">
+    (function() {
+      var slides = [
+        document.getElementById("slide-1"),
+        document.getElementById("slide-2"),
+        document.getElementById("slide-3"),
+        document.getElementById("slide-4")
+      ];
+      var dots = [
+        document.getElementById("dot-1"),
+        document.getElementById("dot-2"),
+        document.getElementById("dot-3"),
+        document.getElementById("dot-4")
+      ];
+      var currentSlide = 0;
+
+      function showSlide(index) {
+        for (var i = 0; i < slides.length; i++) {
+          if (slides[i]) {
+            if (i === index) {
+              slides[i].className = "slide active";
+            } else {
+              slides[i].className = "slide";
+            }
+          }
+        }
+        for (var j = 0; j < dots.length; j++) {
+          if (dots[j]) {
+            if (j === index) {
+              dots[j].className = "dot active";
+            } else {
+              dots[j].className = "dot";
+            }
+          }
+        }
+      }
+
+      function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+      }
+
+      // Safe check and trigger
+      if (slides[0]) {
+        // Force initial display fix
+        showSlide(0);
+        // Change slide every 4 seconds
+        setInterval(nextSlide, 4000);
+      }
+    })();
+  </script>
+
+</body>
+</html>
+
+
